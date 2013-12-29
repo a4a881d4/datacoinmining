@@ -18,18 +18,18 @@ std::vector<unsigned int> vPrimes;
 unsigned int nSieveSize = nDefaultSieveSize;
 unsigned int nSievePercentage = nDefaultSievePercentage;
 unsigned int nSieveExtensions = nDefaultSieveExtensions;
-unsigned int pool_share_minimum = (unsigned int)GetArg("-poolshare", 7);
+unsigned int pool_share_minimum = (unsigned int)GetArgN("-poolshare", 7);
 
 static unsigned int int_invert(unsigned int a, unsigned int nPrime);
 
 void GeneratePrimeTable()
 {
     const unsigned int nDefaultSieveExt = (fTestNet) ? nDefaultSieveExtensionsTestnet : nDefaultSieveExtensions;
-    nSieveExtensions = (unsigned int)GetArg("-sieveextensions", nDefaultSieveExt);
+    nSieveExtensions = (unsigned int)GetArgN("-sieveextensions", nDefaultSieveExt);
     nSieveExtensions = std::max(std::min(nSieveExtensions, nMaxSieveExtensions), nMinSieveExtensions);
-    nSievePercentage = (unsigned int)GetArg("-sievepercentage", nDefaultSievePercentage);
+    nSievePercentage = (unsigned int)GetArgN("-sievepercentage", nDefaultSievePercentage);
     nSievePercentage = std::max(std::min(nSievePercentage, nMaxSievePercentage), nMinSievePercentage);
-    nSieveSize = (unsigned int)GetArg("-sievesize", nDefaultSieveSize);
+    nSieveSize = (unsigned int)GetArgN("-sievesize", nDefaultSieveSize);
     nSieveSize = std::max(std::min(nSieveSize, nMaxSieveSize), nMinSieveSize);
     printf("GeneratePrimeTable() : setting nSieveExtensions = %u, nSievePercentage = %u, nSieveSize = %u\n", nSieveExtensions, nSievePercentage, nSieveSize);
     const unsigned nPrimeTableLimit = nSieveSize;

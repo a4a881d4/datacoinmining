@@ -375,7 +375,7 @@ std::string GetArg(const std::string& strArg, const std::string& strDefault);
  * @param default (e.g. 1)
  * @return command-line argument (0 if invalid number) or default value
  */
-int64 GetArg(const std::string& strArg, int64 nDefault);
+int64 GetArgN(const std::string& strArg, int64 nDefault);
 
 /**
  * Return boolean argument or default value

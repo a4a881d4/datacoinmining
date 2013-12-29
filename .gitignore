@@ -15,4 +15,5 @@
 *~
 *.bak
 work/*
-
+miner_data
+dtc.pool.12.sh

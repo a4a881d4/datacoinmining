@@ -555,10 +555,10 @@ int main(int argc, char **argv)
   ParseParameters(argc, argv);
 
   socket_to_server = NULL;
-  pool_share_minimum = (unsigned int)GetArg("-poolshare", 7);
-  thread_num_max = GetArg("-genproclimit", 1); // what about boost's hardware_concurrency() ?
-  fee_to_pay = GetArg("-poolfee", 3);
-  miner_id = GetArg("-minerid", 0);
+  pool_share_minimum = (unsigned int)GetArgN("-poolshare", 7);
+  thread_num_max = GetArgN("-genproclimit", 1); // what about boost's hardware_concurrency() ?
+  fee_to_pay = GetArgN("-poolfee", 3);
+  miner_id = GetArgN("-minerid", 0);
   pool_username = GetArg("-pooluser", "");
   pool_password = GetArg("-poolpassword", "");
 
@@ -731,7 +731,8 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
             {
 				block_provider->submitBlock(pblock);
 				old_nonce = pblock->nNonce + 1;
-			static CCriticalSection cs;
+			
+		/*	static CCriticalSection cs;
 	              {
 	                LOCK(cs);
 
@@ -746,15 +747,8 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
 
 	                output_file.close();
 	              }
+		*/
                 break;
-            }
-
-            ///
-            /// ENABLE the following code, if you need data for the perftool
-            ///
-            if (nProbableChainLength > 0 && nTests > 10)
-            {
-              
             }
 
             nRoundTests += nTests;
@@ -893,7 +887,7 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
                     if (!PrimeTableGetNextPrime(nPrimorialMultiplier))
                         error("PrimecoinMiner() : primorial increment overflow");
                 }
-                else if (nPrimorialMultiplier > 31 )//nPrimorialHashFactor)
+                else if (nPrimorialMultiplier > nPrimorialHashFactor)
                 {
                     if (!PrimeTableGetPreviousPrime(nPrimorialMultiplier))
                         error("PrimecoinMiner() : primorial decrement overflow");
