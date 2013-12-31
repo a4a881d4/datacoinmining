@@ -276,7 +276,7 @@ bool TargetGetNext(unsigned int nBits, int64 nInterval, int64 nTargetSpacing, in
 // Check Fermat probable primality test (2-PRP): 2 ** (n-1) = 1 (mod n)
 // true: n is probable prime
 // false: n is composite; set fractional length in the nLength output
-static bool FermatProbablePrimalityTest(const CBigNum& n, unsigned int& nLength)
+static bool FermatProbablePrimalityTestL(const CBigNum& n, unsigned int& nLength)
 {
     CAutoBN_CTX pctx;
     CBigNum a = 2; // base; Fermat witness
@@ -292,6 +292,43 @@ static bool FermatProbablePrimalityTest(const CBigNum& n, unsigned int& nLength)
     nLength = (nLength & TARGET_LENGTH_MASK) | nFractionalLength;
     return false;
 }
+
+
+static bool FermatProbablePrimalityTest(const CBigNum& n, unsigned int& nLength)
+{
+	// Faster GMP version
+
+	mpz_t mpzN;
+	mpz_t mpzE;
+	mpz_t mpzR;
+  mpz_t mpzTwo;
+  
+  mpz_init_set_ui(mpzTwo, 2);
+	mpz_set_str(mpzN,n.ToString(16).c_str(),16);
+	mpz_init(mpzE);
+	mpz_sub_ui(mpzE, mpzN, 1);
+	mpz_init(mpzR);
+	mpz_powm(mpzR, mpzTwo, mpzE, mpzN);
+	if (mpz_cmp_ui(mpzR, 1) == 0) {
+		mpz_clear(mpzN);
+		mpz_clear(mpzE);
+		mpz_clear(mpzR);
+		return true;
+	}
+	// Failed Fermat test, calculate fractional length
+	mpz_sub(mpzE, mpzN, mpzR);
+	mpz_mul_2exp(mpzR, mpzE, nFractionalBits);
+	mpz_tdiv_q(mpzE, mpzR, mpzN);
+	unsigned int nFractionalLength = mpz_get_ui(mpzE);
+	mpz_clear(mpzN);
+	mpz_clear(mpzE);
+	mpz_clear(mpzR);
+	if (nFractionalLength >= (1 << nFractionalBits))
+		return error("FermatProbablePrimalityTest() : fractional assert");
+	nLength = (nLength & TARGET_LENGTH_MASK) | nFractionalLength;
+	return false;
+}
+
 
 // Test probable primality of n = 2p +/- 1 based on Euler, Lagrange and Lifchitz
 // fSophieGermain:

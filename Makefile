@@ -8,13 +8,13 @@ LIBS += \
    -l boost_filesystem \
    -l boost_program_options \
    -l boost_thread \
-   -l boost_chrono \
    -l ssl \
    -l crypto \
  -Wl,-Bdynamic \
-   -l gmp \
    -l pthread \
- -Wl,-B$(LMODE)
+   -l gmp \
+ -Wl,-B$(LMODE) 
+   
 
 OBJS=work/prime.o work/main_poolminer.o work/util.o work/sync.o work/hash.o work/json_spirit_reader work/json_spirit_value work/json_spirit_writer
 
