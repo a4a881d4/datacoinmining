@@ -15,10 +15,18 @@ LIBS += \
    -l gmp \
  -Wl,-B$(LMODE) 
 
-OBJS=work/prime.o work/main_poolminer.o work/util.o work/sync.o work/hash.o work/json_spirit_reader work/json_spirit_value work/json_spirit_writer
+OBJS=work/prime.o work/main_poolminer.o work/util.o work/sync.o work/hash.o work/sha256_sse2_amd64.o work/sha256_xmm_amd64.o work/json_spirit_reader work/json_spirit_value work/json_spirit_writer
 
 
-LIBOBJs=work/prime.o work/util.o work/hash.o work/libsha256.so
+
+LIBOBJs=work/prime.o work/util.o work/hash.o
+
+work/sha256_xmm_amd64.o:src/sha256_xmm_amd64.asm
+	yasm -f elf64 -o work/sha256_xmm_amd64.o src/sha256_xmm_amd64.asm
+
+work/sha256_sse2_amd64.o:src/sha256_sse2_amd64.cpp
+	g++ -fPIC -c -o work/sha256_sse2_amd64.o src/sha256_sse2_amd64.cpp
+
 
 work/prime.o:src/prime.cpp
 	$(CXX) $(CFLAG) -c -o $@ $^
@@ -38,7 +46,7 @@ work/json_spirit_writer:src/json/json_spirit_writer.cpp
 	$(CXX) $(CFLAG) -c -o $@ $^
 
 work/dm:$(OBJS)
-	$(LINK) -o $@ $^ $(LIBS) work/libsha256.so
+	$(LINK) -o $@ $^ $(LIBS)
 
 work/libDM.so:$(LIBOBJs)
 	$(LINK) -shared -o $@ $^ $(LIBS)
