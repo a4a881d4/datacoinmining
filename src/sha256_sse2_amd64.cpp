@@ -180,9 +180,11 @@ extern "C" int scanhash_sse2_64( const void *pWork )
 				T = checkInt(m_4hash,j,primesT3);
 				if( !(T%31) ) c++; else mul*=31;
 				if( !(T%37) ) c++; else mul*=37;
+				/*
 				if( !(T%41) ) c++; else mul*=41;
 				if( !(T%43) ) c++; else mul*=43;
 				if( !(T%47) ) c++; else mul*=47;
+				*/
 				if( c>=pwork->target ) { 		
 					*nHashesDone = nonce;
 					*nNonce_p = ByteReverse(nonce + j);
