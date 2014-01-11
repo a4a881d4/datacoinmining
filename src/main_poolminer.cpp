@@ -686,7 +686,7 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
         loop {
         	memcpy(blockwork.pdata,&(pblock->nVersion),80);
         	pblock->nNonce=nNoncePreThread;
-        	blockwork.target = 5;
+        	blockwork.target = 4;
         	blockwork.max_nonce = pblock->nNonce+100000;
         	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
         	if( new_nonce!= -1 ) {
@@ -865,7 +865,7 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
                 loop {
         					memcpy(blockwork.pdata,&(pblock->nVersion),80);
 				        	pblock->nNonce=nNoncePreThread;
-				        	blockwork.target = 5;
+				        	blockwork.target = 4;
 				        	blockwork.max_nonce = pblock->nNonce+100000;
 				        	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
 				        	if( new_nonce!= -1 ) {
