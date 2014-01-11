@@ -298,12 +298,13 @@ public:
 			*((unsigned short*)(hello+pool_username.length()+21+pool_password.length())) = 0; //EXTENSIONS
 			boost::system::error_code error;
 			socket->write_some(boost::asio::buffer(hello, pool_username.length()+2+20+1+pool_password.length()), error);
+			/*
 			int i;
 			printf("Hello message: ");
 			for( i=0;i<pool_username.length()+2+20+1+pool_password.length();i++ ) 
 				printf("%02x(%c) ",hello[i],hello[i]);
 			printf("\n");
-			
+			*/
 			if (error)
 				std::cout << error << " @ write_some_hello" << std::endl;
 			delete[] hello;
@@ -604,8 +605,8 @@ std::cout << pool_username << std::endl;
   pindexBest = new CBlockIndex();
 
   GeneratePrimeTable();
-  std::ofstream output_file("miner_data");
-  output_file.close();
+  //std::ofstream output_file("miner_data");
+  //output_file.close();
   // ok, start mining:
   CBlockProviderGW* bprovider = new CBlockProviderGW();
   CMasterThread *mt = new CMasterThread(bprovider);
@@ -737,9 +738,9 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
 								static CCriticalSection cs;
 	              {
 	                LOCK(cs);
-
+									/*
 	                std::ofstream output_file("miner_data",std::ios::app);
-	                /*
+	                
 			                static const int CURRENT_VERSION=2;
 									    int nVersion;
 									    uint256 hashPrevBlock;
@@ -747,7 +748,7 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
 									    unsigned int nTime;
 									    unsigned int nBits;  // Primecoin: prime chain target, see prime.cpp
 									    unsigned int nNonce;
-									*/
+									
 	                output_file << "Block" << std::endl;
 									output_file << pblock->nVersion << std::endl;
 									output_file << pblock->hashPrevBlock.ToString().c_str() << std::endl;
@@ -764,6 +765,7 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
 	                output_file << mpzHash.get_str(16) << std::endl;
 
 	                output_file.close();
+	                */
 	              }
 		
                 break;
