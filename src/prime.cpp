@@ -601,6 +601,11 @@ static bool FermatProbablePrimalityTestFast(const mpz_class& n, unsigned int& nL
     mpz_t& mpzR = testParams.mpzR;
 
     mpz_sub_ui(mpzE, n.get_mpz_t(), 1);
+    /*
+    mpz_class mc_E(mpzE);
+    std::cout <<"n:"<< n.get_str() << std::endl;
+    std::cout <<"E:"<< mc_E.get_str() << std::endl;
+    */
     mpz_powm(mpzR, mpzTwo.get_mpz_t(), mpzE, n.get_mpz_t());
     if (mpz_cmp_ui(mpzR, 1) == 0)
         return true;
@@ -763,7 +768,7 @@ CBlockIndex *pindexBest;
 boost::thread_specific_ptr<CSieveOfEratosthenes> psieve;
 
 // Mine probable prime chain of form: n = h * p# +/- 1
-bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& fNewBlock, unsigned int& nTriedMultiplier, unsigned int& nProbableChainLength, unsigned int& nTests, unsigned int& nPrimesHit, unsigned int& nChainsHit, mpz_class& mpzHash, unsigned int nPrimorialMultiplier, int64& nSieveGenTime, CBlockIndex* pindexPrev, bool poolmining)
+bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& fNewBlock, unsigned int& nTriedMultiplier, unsigned int& nProbableChainLength, unsigned int& nTests, unsigned int& nPrimesHit, unsigned int& nChainsHit, mpz_class& mpzHash, unsigned int nPrimorialMultiplier, int64& nSieveGenTime, CBlockIndex* pindexPrev, bool poolmining, unsigned int start)
 {
     CSieveOfEratosthenes *lpsieve;
     nProbableChainLength = 0;
@@ -784,7 +789,7 @@ bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& 
     {
         // Build sieve
         nStart = GetTimeMicros();
-        lpsieve = new CSieveOfEratosthenes(nSieveSize, nSievePercentage, nSieveExtensions, nBits, mpzHash, mpzFixedMultiplier, pindexPrev);
+        lpsieve = new CSieveOfEratosthenes(nSieveSize, nSievePercentage, nSieveExtensions, nBits, mpzHash, mpzFixedMultiplier, pindexPrev, start);
         while (lpsieve->Weave() && pindexPrev == pindexBest);
         nSieveGenTime = GetTimeMicros() - nStart;
 #if TEST        
@@ -796,7 +801,11 @@ bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& 
 
     mpz_class mpzHashMultiplier = mpzHash * mpzFixedMultiplier;
     mpz_class mpzChainOrigin;
-    
+    /*
+    std::cout << " 1:mpzHashMultiplier: " << mpzHashMultiplier.get_str();
+    std::cout << " 1:mpzHash: " << mpzHash.get_str();
+    std::cout << " 1:mpzFixedMultiplier: " << mpzFixedMultiplier.get_str();
+    */
     // Determine the sequence number of the round primorial
     unsigned int nPrimorialSeq = 0;
     while (vPrimes[nPrimorialSeq + 1] <= nPrimorialMultiplier)
@@ -813,6 +822,7 @@ bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& 
     
     // Number of candidates to be tested during a single call to this function
     const unsigned int nTestsAtOnce = 500;
+    
 
     // Process a part of the candidates
     while (nTests < nTestsAtOnce && pindexPrev == pindexBest)
@@ -829,6 +839,12 @@ bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& 
         }
         nTests++;
         mpzChainOrigin = mpzHashMultiplier * nTriedMultiplier;
+        /*
+        std::cout << " nTriedMultiplier: " << nTriedMultiplier;
+        std::cout << " 2:mpzHashMultiplier: " << mpzHashMultiplier.get_str();
+        std::cout << " mpzChainOrigin: " << mpzChainOrigin.get_str();
+        std::cout << std::endl;
+        */
         nChainLength = 0;
         if (ProbablePrimeChainTestFast(mpzChainOrigin, testParams, poolmining))
         {
@@ -1009,15 +1025,15 @@ bool CSieveOfEratosthenes::Weave()
 
         // Check whether 32-bit arithmetic can be used for nFixedInverse
         const bool fUse32BArithmetic = (UINT_MAX / nTwoInverse) >= nPrime;
-
+				const unsigned int nnStart = nPrime-nStart%nPrime;
         if (fUse32BArithmetic)
         {
             // Weave the sieve for the prime
             for (unsigned int nChainSeq = 0; nChainSeq < nSieveLayers; nChainSeq++)
             {
                 // Find the first number that's divisible by this prime
-                vCunningham1Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = nFixedInverse;
-                vCunningham2Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = nPrime - nFixedInverse;
+                vCunningham1Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = (nFixedInverse+nnStart)%nPrime;
+                vCunningham2Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = (nPrime - nFixedInverse+nnStart)%nPrime;
 
                 // For next number in chain
                 nFixedInverse = nFixedInverse * nTwoInverse % nPrime;
@@ -1029,8 +1045,8 @@ bool CSieveOfEratosthenes::Weave()
             for (unsigned int nChainSeq = 0; nChainSeq < nSieveLayers; nChainSeq++)
             {
                 // Find the first number that's divisible by this prime
-                vCunningham1Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = nFixedInverse;
-                vCunningham2Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = nPrime - nFixedInverse;
+                vCunningham1Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = (nFixedInverse+nnStart)%nPrime;
+                vCunningham2Multipliers[nPrimeSeqLocal * nSieveLayers + nChainSeq] = (nPrime - nFixedInverse+nnStart)%nPrime;
 
                 // For next number in chain
                 nFixedInverse = (uint64)nFixedInverse * nTwoInverse % nPrime;

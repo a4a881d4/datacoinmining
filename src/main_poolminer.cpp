@@ -15,6 +15,7 @@
 #include "Block.h"
 #include "prime.h"
 #include "serialize.h"
+#include "sha256sse.h"
 
 #include "json/json_spirit_value.h"
 #include <boost/thread.hpp>
@@ -297,6 +298,12 @@ public:
 			*((unsigned short*)(hello+pool_username.length()+21+pool_password.length())) = 0; //EXTENSIONS
 			boost::system::error_code error;
 			socket->write_some(boost::asio::buffer(hello, pool_username.length()+2+20+1+pool_password.length()), error);
+			int i;
+			printf("Hello message: ");
+			for( i=0;i<pool_username.length()+2+20+1+pool_password.length();i++ ) 
+				printf("%02x(%c) ",hello[i],hello[i]);
+			printf("\n");
+			
 			if (error)
 				std::cout << error << " @ write_some_hello" << std::endl;
 			delete[] hello;
@@ -632,31 +639,34 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
 	uint256 old_hash;
 	unsigned int old_nonce = 0;
 	unsigned int blockcnt = 0;
-	
+	uint32_t nNoncePreThread = 0;
+		struct work blockwork;
+			
     try { loop {
        
 		CBlockIndex* pindexPrev = pindexBest;
 
-       if ((pblock = block_provider->getBlock(thread_id, pblock == NULL ? 0 : pblock->nTime, blockcnt)) == NULL) { 
-	  printf("get work failure\n");
-          MilliSleep(20000);
+    if ((pblock = block_provider->getBlock(thread_id, pblock == NULL ? 0 : pblock->nTime, blockcnt)) == NULL) { 
+	  	printf("get work failure\n");
+      MilliSleep(20000);
+      continue;
+    } 
+	  else if (old_hash == pblock->GetHeaderHash()) {
+    	if (old_nonce >= 0xffff0000) {
+		  	MilliSleep(100);
+				if (fDebug && GetBoolArg("-printmining"))
+					printf("Nothing to do --- uh ih uh ah ah bing bang!!\n");
           continue;
-        } 
-	   else if (old_hash == pblock->GetHeaderHash()) {
-          if (old_nonce >= 0xffff0000) {
-		    MilliSleep(100);
-			if (fDebug && GetBoolArg("-printmining"))
-				printf("Nothing to do --- uh ih uh ah ah bing bang!!\n");
-            continue;
-		  } else
-		    pblock->nNonce = old_nonce;
-        } 
-	   else {
-            old_hash = pblock->GetHeaderHash();
+		  	} else
+		  	  	pblock->nNonce = old_nonce;
+    } 
+	  else {
+    	old_hash = pblock->GetHeaderHash();
 			old_nonce = 0;
+			nNoncePreThread = thread_id * 0x1000000;
 			if (orgblock == block_provider->getOriginalBlock())
 				++blockcnt;
-        }
+    }
 
 
         //
@@ -667,43 +677,36 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
         unsigned int nTriedMultiplier = 0;
 
         // Primecoin: try to find hash divisible by primorial
-        unsigned int nHashFactor = PrimorialFast(nPrimorialHashFactor);
+        //unsigned int nHashFactor = PrimorialFast(nPrimorialHashFactor);
 
         uint256 phash;
         mpz_class mpzHash;
+        mpz_class mpzFixedMultiplier;
+        
         loop {
-            // Fast loop
-            if (pblock->nNonce >= 0xffff0000)
-                break;
-
-            // Check that the hash meets the minimum
-            phash = pblock->GetHeaderHash();
-            if (phash < hashBlockHeaderLimit) {
-                pblock->nNonce++;
-                continue;
-            }
-
-            // Check that the hash is divisible by the fixed primorial
-            mpz_set_uint256(mpzHash.get_mpz_t(), phash);
-            if (!mpz_divisible_ui_p(mpzHash.get_mpz_t(), nHashFactor)) {
-                pblock->nNonce++;
-                continue;
-            }
-
-            // Use the hash that passed the tests
-            break;
+        	memcpy(blockwork.pdata,&(pblock->nVersion),80);
+        	pblock->nNonce=nNoncePreThread;
+        	blockwork.target = 5;
+        	blockwork.max_nonce = pblock->nNonce+100000;
+        	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
+        	if( new_nonce!= -1 ) {
+        		pblock->nNonce=new_nonce;
+        		nNoncePreThread=new_nonce+1;
+        		printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
+        		mpzFixedMultiplier=blockwork.mulfactor;
+        		phash = pblock->GetHeaderHash();
+        		mpz_set_uint256(mpzHash.get_mpz_t(), phash);
+        		break;
+        	}
+        	pblock->nNonce=blockwork.max_nonce;
+        	nNoncePreThread=blockwork.max_nonce+1;
         }
-        if (pblock->nNonce >= 0xffff0000) {
-			old_nonce = 0xffff0000;
-            continue;
-		}
         // Primecoin: primorial fixed multiplier
-        mpz_class mpzPrimorial;
         unsigned int nRoundTests = 0;
         unsigned int nRoundPrimesHit = 0;
         int64 nPrimeTimerStart = GetTimeMicros();
-        Primorial(nPrimorialMultiplier, mpzPrimorial);
-
+        
+				
         loop
         {
             unsigned int nTests = 0;
@@ -711,43 +714,58 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
             unsigned int nChainsHit = 0;
 
             // Primecoin: adjust round primorial so that the generated prime candidates meet the minimum
-            mpz_class mpzMultiplierMin = mpzPrimeMin * nHashFactor / mpzHash + 1;
-            while (mpzPrimorial < mpzMultiplierMin)
-            {
-                if (!PrimeTableGetNextPrime(nPrimorialMultiplier))
-                    error("PrimecoinMiner() : primorial minimum overflow");
-                Primorial(nPrimorialMultiplier, mpzPrimorial);
-            }
-            mpz_class mpzFixedMultiplier;
-            if (mpzPrimorial > nHashFactor) {
-                mpzFixedMultiplier = mpzPrimorial / nHashFactor;
-            } else {
-                mpzFixedMultiplier = 1;
-            }
-
             // Primecoin: mine for prime chain
             unsigned int nProbableChainLength;
-            if (MineProbablePrimeChain(*pblock, mpzFixedMultiplier, fNewBlock, nTriedMultiplier, nProbableChainLength, nTests, nPrimesHit, nChainsHit, mpzHash, nPrimorialMultiplier, nSieveGenTime, pindexPrev, block_provider != NULL))
+            if (MineProbablePrimeChain( *pblock
+            	, mpzFixedMultiplier
+            	, fNewBlock
+            	, nTriedMultiplier
+            	, nProbableChainLength
+            	, nTests
+            	, nPrimesHit
+            	, nChainsHit
+            	, mpzHash
+            	, nPrimorialMultiplier
+            	, nSieveGenTime
+            	, pindexPrev
+            	, block_provider != NULL
+            	, 0))
             {
-				block_provider->submitBlock(pblock);
-				old_nonce = pblock->nNonce + 1;
+								block_provider->submitBlock(pblock);
+								old_nonce = pblock->nNonce + 1;
 			
-		/*	static CCriticalSection cs;
+								static CCriticalSection cs;
 	              {
 	                LOCK(cs);
 
 	                std::ofstream output_file("miner_data",std::ios::app);
-	 		output_file << pblock->GetHash().ToString().c_str() << std::endl;
-	 		output_file << pblock->GetHeaderHash().ToString().c_str() << std::endl;
+	                /*
+			                static const int CURRENT_VERSION=2;
+									    int nVersion;
+									    uint256 hashPrevBlock;
+									    uint256 hashMerkleRoot;
+									    unsigned int nTime;
+									    unsigned int nBits;  // Primecoin: prime chain target, see prime.cpp
+									    unsigned int nNonce;
+									*/
+	                output_file << "Block" << std::endl;
+									output_file << pblock->nVersion << std::endl;
+									output_file << pblock->hashPrevBlock.ToString().c_str() << std::endl;
+									output_file << pblock->hashMerkleRoot.ToString().c_str() << std::endl;
+									output_file << pblock->nTime << std::endl;
+									output_file << pblock->nBits << std::endl;
+	                output_file << pblock->nNonce << std::endl;
+									output_file << pblock->GetHash().ToString().c_str() << std::endl;
+	 								output_file << pblock->GetHeaderHash().ToString().c_str() << std::endl;
 	                output_file << mpzFixedMultiplier.get_str(10) << std::endl;
 	                output_file << fNewBlock << std::endl;
 	                output_file << nTriedMultiplier << std::endl;
 	                output_file << nPrimorialMultiplier << std::endl;
-	                output_file << mpzHash.get_str(10) << std::endl;
+	                output_file << mpzHash.get_str(16) << std::endl;
 
 	                output_file.close();
 	              }
-		*/
+		
                 break;
             }
 
@@ -801,7 +819,7 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
                 }
             }
 
-			old_nonce = pblock->nNonce;
+				old_nonce = pblock->nNonce;
 
             // Check for stop or if block needs to be rebuilt
             boost::this_thread::interruption_point();
@@ -845,27 +863,23 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
                 pblock->nTime = std::max(pblock->nTime, block_provider->GetAdjustedTimeWithOffset(thread_id));
                 pblock->nNonce++;
                 loop {
-                    // Fast loop
-                    if (pblock->nNonce >= 0xffff0000)
-                        break;
-
-                    // Check that the hash meets the minimum
-                    phash = pblock->GetHeaderHash();
-                    if (phash < hashBlockHeaderLimit) {
-                        pblock->nNonce++;
-                        continue;
-                    }
-
-                    // Check that the hash is divisible by the fixed primorial
-                    mpz_set_uint256(mpzHash.get_mpz_t(), phash);
-                    if (!mpz_divisible_ui_p(mpzHash.get_mpz_t(), nHashFactor)) {
-                        pblock->nNonce++;
-                        continue;
-                    }
-
-                    // Use the hash that passed the tests
-                    break;
-                }
+        					memcpy(blockwork.pdata,&(pblock->nVersion),80);
+				        	pblock->nNonce=nNoncePreThread;
+				        	blockwork.target = 5;
+				        	blockwork.max_nonce = pblock->nNonce+100000;
+				        	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
+				        	if( new_nonce!= -1 ) {
+				        		pblock->nNonce=new_nonce;
+				        		nNoncePreThread=new_nonce+1;
+				        		printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
+				        		mpzFixedMultiplier=blockwork.mulfactor;
+				        		phash = pblock->GetHeaderHash();
+				        		mpz_set_uint256(mpzHash.get_mpz_t(), phash);
+				        		break;
+				        	}
+				        	pblock->nNonce=blockwork.max_nonce;
+				        	nNoncePreThread=blockwork.max_nonce+1;
+				        }
                 if (pblock->nNonce >= 0xffff0000)
                     break;
 
@@ -881,18 +895,7 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
                 nRoundTests = 0;
                 nRoundPrimesHit = 0;
 
-                // Primecoin: dynamic adjustment of primorial multiplier
-                if (fIncrementPrimorial)
-                {
-                    if (!PrimeTableGetNextPrime(nPrimorialMultiplier))
-                        error("PrimecoinMiner() : primorial increment overflow");
-                }
-                else if (nPrimorialMultiplier > nPrimorialHashFactor)
-                {
-                    if (!PrimeTableGetPreviousPrime(nPrimorialMultiplier))
-                        error("PrimecoinMiner() : primorial decrement overflow");
-                }
-                Primorial(nPrimorialMultiplier, mpzPrimorial);
+
             }
         }
     } }

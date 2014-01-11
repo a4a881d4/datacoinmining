@@ -129,7 +129,7 @@ std::string GetPrimeOriginPrimorialForm(CBigNum& bnPrimeChainOrigin);
 /********************/
 
 // Mine probable prime chain of form: n = h * p# +/- 1
-bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& fNewBlock, unsigned int& nTriedMultiplier, unsigned int& nProbableChainLength, unsigned int& nTests, unsigned int& nPrimesHit, unsigned int& nChainsHit, mpz_class& mpzHash, unsigned int nPrimorialMultiplier, int64& nSieveGenTime, CBlockIndex* pindexPrev, bool poolmining);
+bool MineProbablePrimeChain(CBlock& block, mpz_class& mpzFixedMultiplier, bool& fNewBlock, unsigned int& nTriedMultiplier, unsigned int& nProbableChainLength, unsigned int& nTests, unsigned int& nPrimesHit, unsigned int& nChainsHit, mpz_class& mpzHash, unsigned int nPrimorialMultiplier, int64& nSieveGenTime, CBlockIndex* pindexPrev, bool poolmining, unsigned int start);
 
 // Estimate the probability of primality for a number in a candidate chain
 double EstimateCandidatePrimeProbability(unsigned int nPrimorialMultiplier, unsigned int nChainPrimeNum);
@@ -192,6 +192,7 @@ class CSieveOfEratosthenes
     unsigned int nSieveLayers; // sieve layers
     unsigned int nPrimes; // number of times to weave the sieve
 
+		unsigned int nStart;
     CBlockIndex* pindexPrev;
 
     unsigned int GetWordNum(unsigned int nBitNum) {
@@ -205,7 +206,7 @@ class CSieveOfEratosthenes
     void ProcessMultiplier(sieve_word_t *vfComposites, const unsigned int nMinMultiplier, const unsigned int nMaxMultiplier, const std::vector<unsigned int>& vPrimes, unsigned int *vMultipliers, unsigned int nLayerSeq);
 
 public:
-    CSieveOfEratosthenes(unsigned int nSieveSize, unsigned int nSievePercentage, unsigned int nSieveExtensions, unsigned int nBits, mpz_class& mpzHash, mpz_class& mpzFixedMultiplier, CBlockIndex* pindexPrev)
+    CSieveOfEratosthenes(unsigned int nSieveSize, unsigned int nSievePercentage, unsigned int nSieveExtensions, unsigned int nBits, mpz_class& mpzHash, mpz_class& mpzFixedMultiplier, CBlockIndex* pindexPrev, unsigned int start)
     {
         this->nSieveSize = nSieveSize;
         this->nSievePercentage = nSievePercentage;
@@ -214,6 +215,7 @@ public:
         this->mpzHash = mpzHash;
         this->mpzFixedMultiplier = mpzFixedMultiplier;
         this->pindexPrev = pindexPrev;
+        nStart = start;
         nPrimeSeq = 0;
         nCandidateCount = 0;
         nCandidateMultiplier = 0;
@@ -384,6 +386,7 @@ public:
 
             if (lBits & GetBitMask(nCandidateIndex))
             {
+            	  nCandidateIndex+=nStart;
                 if (fCandidateIsExtended)
                     nCandidateMultiplier = nCandidateIndex * (2 << nCandidateActiveExtension);
                 else
@@ -410,7 +413,7 @@ public:
     bool Weave();
 };
 
-static const unsigned int nPrimorialHashFactor = 7;
+static const unsigned int nPrimorialHashFactor = 11;
 
 inline void mpz_set_uint256(mpz_t r, uint256& u)
 {

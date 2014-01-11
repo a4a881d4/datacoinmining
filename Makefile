@@ -1,4 +1,4 @@
-CFLAG = -O3 -DTEST=0
+CFLAG = -O3 -DTEST=0 -fPIC
 LINK=$(CXX)
 LMODE = dynamic
 LIBS = -L/usr/lib/x86_64-linux-gnu
@@ -14,9 +14,11 @@ LIBS += \
    -l pthread \
    -l gmp \
  -Wl,-B$(LMODE) 
-   
 
 OBJS=work/prime.o work/main_poolminer.o work/util.o work/sync.o work/hash.o work/json_spirit_reader work/json_spirit_value work/json_spirit_writer
+
+
+LIBOBJs=work/prime.o work/util.o work/hash.o work/libsha256.so
 
 work/prime.o:src/prime.cpp
 	$(CXX) $(CFLAG) -c -o $@ $^
@@ -36,9 +38,19 @@ work/json_spirit_writer:src/json/json_spirit_writer.cpp
 	$(CXX) $(CFLAG) -c -o $@ $^
 
 work/dm:$(OBJS)
+	$(LINK) -o $@ $^ $(LIBS) work/libsha256.so
+
+work/libDM.so:$(LIBOBJs)
+	$(LINK) -shared -o $@ $^ $(LIBS)
+
+work/dms:work/main_poolminer.o work/sync.o work/json_spirit_reader work/json_spirit_value work/json_spirit_writer work/libDM.so work/libsha256.so
 	$(LINK) -o $@ $^ $(LIBS)
- 
+
+	
 all:work/dm
+
+all-s:work/dms
+
 
 clean:
 	rm work/* -f
