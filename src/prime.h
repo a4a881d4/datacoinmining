@@ -44,7 +44,7 @@ static const unsigned int nDefaultSievePercentage = 10;
 static const unsigned int nMinSievePercentage = 1;
 extern unsigned int nSievePercentage;
 static const unsigned int nMaxSieveSize = 10000000u;
-static const unsigned int nDefaultSieveSize = 5000000u;
+static const unsigned int nDefaultSieveSize = 3000000u;
 static const unsigned int nMinSieveSize = 100000u;
 extern unsigned int nSieveSize;
 static const uint256 hashBlockHeaderLimit = (uint256(1) << 255);
@@ -240,8 +240,8 @@ public:
         memset(vfExtendedCompositeBiTwin, 0, nSieveExtensions * nCandidatesBytes);
         memset(vfExtendedCompositeCunningham1, 0, nSieveExtensions * nCandidatesBytes);
         memset(vfExtendedCompositeCunningham2, 0, nSieveExtensions * nCandidatesBytes);
-        nChainLength = 6;//TargetGetLength(nBits);
-        nChainLength_A = 6;//TargetGetLength(nBits);
+        nChainLength = 7;//TargetGetLength(nBits);
+        nChainLength_A = 7;//TargetGetLength(nBits);
         nSieveLayers = nChainLength + nSieveExtensions;
 
         // Process only a set percentage of the primes
