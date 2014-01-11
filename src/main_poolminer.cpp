@@ -686,13 +686,13 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
         loop {
         	memcpy(blockwork.pdata,&(pblock->nVersion),80);
         	pblock->nNonce=nNoncePreThread;
-        	blockwork.target = 4;
+        	blockwork.target = 3;
         	blockwork.max_nonce = pblock->nNonce+100000;
         	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
         	if( new_nonce!= -1 ) {
         		pblock->nNonce=new_nonce;
         		nNoncePreThread=new_nonce+1;
-        		printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
+        		//printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
         		mpzFixedMultiplier=blockwork.mulfactor;
         		phash = pblock->GetHeaderHash();
         		mpz_set_uint256(mpzHash.get_mpz_t(), phash);
@@ -865,13 +865,13 @@ void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
                 loop {
         					memcpy(blockwork.pdata,&(pblock->nVersion),80);
 				        	pblock->nNonce=nNoncePreThread;
-				        	blockwork.target = 4;
+				        	blockwork.target = 3;
 				        	blockwork.max_nonce = pblock->nNonce+100000;
 				        	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
 				        	if( new_nonce!= -1 ) {
 				        		pblock->nNonce=new_nonce;
 				        		nNoncePreThread=new_nonce+1;
-				        		printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
+				        		//printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
 				        		mpzFixedMultiplier=blockwork.mulfactor;
 				        		phash = pblock->GetHeaderHash();
 				        		mpz_set_uint256(mpzHash.get_mpz_t(), phash);
