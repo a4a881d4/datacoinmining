@@ -116,7 +116,6 @@ extern "C" int scanhash_sse2_64( const void *pWork )
 	char *pdata=pdata2+64;
 	char phash1[64];
 	char *phash = pwork->phash;
-	uint32_t max_nonce = pwork->max_nonce;
 	uint64_t *nHashesDone = &(pwork->nHashesDone);
 	FormatHashBuffers(pwork->pdata,pmidstate,pdata2,phash1);
 	uint32_t *nNonce_p = (uint32_t *)(pdata + 12);
@@ -147,7 +146,8 @@ extern "C" int scanhash_sse2_64( const void *pWork )
 		g_4sha256_k[i] = _mm_set1_epi32(g_sha256_k[i]);
 	
 	offset = _mm_set_epi32(0x3, 0x2, 0x1, 0x0);
-	for (;;)
+	int hc=0;
+	for (hc=0;hc<pwork->max;hc+=4)
 	{
 		int j;
 
@@ -180,13 +180,12 @@ extern "C" int scanhash_sse2_64( const void *pWork )
 				T = checkInt(m_4hash,j,primesT3);
 				if( !(T%31) ) c++; else mul*=31;
 				if( !(T%37) ) c++; else mul*=37;
-				/*
 				if( !(T%41) ) c++; else mul*=41;
 				if( !(T%43) ) c++; else mul*=43;
 				if( !(T%47) ) c++; else mul*=47;
-				*/
+				
 				if( c>=pwork->target ) { 		
-					*nHashesDone = nonce;
+					*nHashesDone = hc;
 					*nNonce_p = ByteReverse(nonce + j);
 			
 					for( i=0;i<8;i++ ) {
@@ -199,12 +198,9 @@ extern "C" int scanhash_sse2_64( const void *pWork )
 			}
 		}
 		nonce += 4;
-
-		if (unlikely((nonce >= max_nonce))) {
-			*nHashesDone = nonce;
-			return -1;
-		}
 	}
+	*nHashesDone = hc;
+	return -1;
 }
 
 

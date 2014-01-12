@@ -25,7 +25,7 @@ work/sha256_xmm_amd64.o:src/sha256_xmm_amd64.asm
 	yasm -f elf64 -o work/sha256_xmm_amd64.o src/sha256_xmm_amd64.asm
 
 work/sha256_sse2_amd64.o:src/sha256_sse2_amd64.cpp
-	g++ -fPIC -c -o work/sha256_sse2_amd64.o src/sha256_sse2_amd64.cpp
+	g++ -O3 -fPIC -c -o work/sha256_sse2_amd64.o src/sha256_sse2_amd64.cpp
 
 
 work/prime.o:src/prime.cpp

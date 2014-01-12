@@ -621,289 +621,315 @@ double dChainsPerMinute = 0.0;
 double dChainsPerDay = 0.0;
 int64 nHPSTimerStart = 0;
 
+struct nonceG {
+	uint32_t nonce;
+	uint64_t mul[32];
+	double hit[32];
+	int num;
+	int now;
+};
 
+const uint32_t smallPrimes[11]={11,13,17,19,23,29,31,37,41,43,47};
+static void checkHash( mpz_class &hash,uint64_t mul,int thread_id )
+{
+	printf("thread [%d,%20lld] check:",thread_id,(long long int)mul);
+		if( mpz_divisible_ui_p(hash.get_mpz_t(),210) ) printf("0"); else printf("*");
+	for( int i=0;i<11;i++ )
+		if( (mpz_divisible_ui_p(hash.get_mpz_t(), smallPrimes[i])) || (mul%smallPrimes[i])==0 ) printf("0"); else printf("*");
+	/*		
+	printf("-");
+	for( int i=0;i<11;i++ )
+		if( (mul%smallPrimes[i])==0 ) printf("0"); else printf("*");
+	*/
+	printf("\n");
+}
+static uint32_t updateNonce( CBlock *pblock, uint32_t noncein, struct nonceG& grp )
+{
+	int nonceout=noncein+1;
+	struct work blockwork;
+	int i;
+	pblock->nNonce=noncein;
+	for(;;) {
+  	memcpy(blockwork.pdata,&(pblock->nVersion),80);
+    blockwork.target = 4;
+    blockwork.max = 100000;
+    uint32_t new_nonce = scanhash_sse2_64( &blockwork );
+    if( new_nonce!= -1 ) {
+    	pblock->nNonce=new_nonce;
+      nonceout=new_nonce+1;
+      grp.nonce=new_nonce;
+      grp.num=0;
+      uint64_t m=1;
+      uint64_t mulf = blockwork.mulfactor;
+      for( i=0;i<11;i++ ) {
+      	if( (mulf%smallPrimes[i])==0 ) {
+      		m*=smallPrimes[i];
+      		grp.mul[grp.num]=m;
+      		grp.num++;
+      	}
+      }
+      if( grp.num > 3 )
+      	grp.now=grp.num-3;
+      else
+      	grp.now=0;
+      break;
+    }
+    pblock->nNonce+=blockwork.max;
+    nonceout=pblock->nNonce+1;
+  }
+  return nonceout;
+}
+
+/*
+  		mpzFixedMultiplier=blockwork.mulfactor;
+   		phash = pblock->GetHeaderHash();
+   		mpz_set_uint256(mpzHash.get_mpz_t(), phash);
+*/
 void BitcoinMiner( CBlockProvider *block_provider, unsigned int thread_id )
 {
-    printf("PrimecoinMiner started\n");
-    RenameThread("primecoin-miner");
+	
+printf("PrimecoinMiner started\n");
+RenameThread("primecoin-miner");
 
-    // Each thread has its own kcd ey and counter
-    unsigned int nExtraNonce = 0; //^
+// Each thread has its own kcd ey and counter
+unsigned int nExtraNonce = 0; //^
 
-    unsigned int nPrimorialMultiplier = nPrimorialHashFactor;
-    double dTimeExpected = 0;   // time expected to prime chain (micro-second)
-    int64 nSieveGenTime = 0; // how many milliseconds sieve generation took
-    bool fIncrementPrimorial = true; // increase or decrease primorial factor
+unsigned int nPrimorialMultiplier = nPrimorialHashFactor;
+double dTimeExpected = 0;   // time expected to prime chain (micro-second)
+int64 nSieveGenTime = 0; // how many milliseconds sieve generation took
+bool fIncrementPrimorial = true; // increase or decrease primorial factor
 
-    CBlock *pblock = NULL;
-	CBlock *orgblock = NULL;
-	uint256 old_hash;
-	unsigned int old_nonce = 0;
-	unsigned int blockcnt = 0;
-	uint32_t nNoncePreThread = 0;
-		struct work blockwork;
-			
-    try { loop {
-       
-		CBlockIndex* pindexPrev = pindexBest;
+CBlock *pblock = NULL;
+CBlock *orgblock = NULL;
+uint256 old_hash;
+unsigned int old_nonce = 0;
+unsigned int blockcnt = 0;
+uint32_t nNoncePreThread = 0;
+struct nonceG nonceGrp;
+for( int thit=0;thit<32;thit++) nonceGrp.hit[thit]=0.;
+try { loop {
 
-    if ((pblock = block_provider->getBlock(thread_id, pblock == NULL ? 0 : pblock->nTime, blockcnt)) == NULL) { 
-	  	printf("get work failure\n");
-      MilliSleep(20000);
-      continue;
-    } 
-	  else if (old_hash == pblock->GetHeaderHash()) {
-    	if (old_nonce >= 0xffff0000) {
-		  	MilliSleep(100);
-				if (fDebug && GetBoolArg("-printmining"))
-					printf("Nothing to do --- uh ih uh ah ah bing bang!!\n");
-          continue;
-		  	} else
-		  	  	pblock->nNonce = old_nonce;
-    } 
-	  else {
-    	old_hash = pblock->GetHeaderHash();
-			old_nonce = 0;
-			nNoncePreThread = thread_id * 0x1000000;
-			if (orgblock == block_provider->getOriginalBlock())
-				++blockcnt;
-    }
+	CBlockIndex* pindexPrev = pindexBest;
+
+	if ((pblock = block_provider->getBlock(thread_id, pblock == NULL ? 0 : pblock->nTime, blockcnt)) == NULL) {
+		printf("get work failure\n");
+		MilliSleep(20000);
+		continue;
+	}
+	else if (old_hash == pblock->GetHeaderHash()) {
+		if (old_nonce >= 0xffff0000) {
+			MilliSleep(100);
+			if (fDebug && GetBoolArg("-printmining"))
+				printf("Nothing to do --- uh ih uh ah ah bing bang!!\n");
+				continue;
+		} else
+			pblock->nNonce = old_nonce;
+	}
+	else {
+		old_hash = pblock->GetHeaderHash();
+		old_nonce = 0;
+		nNoncePreThread = 0;
+		if (orgblock == block_provider->getOriginalBlock())
+			++blockcnt;
+	}
 
 
-        //
-        // Search
-        //
-        int64 nStart = GetTime();
-        bool fNewBlock = true;
-        unsigned int nTriedMultiplier = 0;
+				//
+				// Search
+				//
+	int64 nStart = GetTime();
+	bool fNewBlock = true;
+	unsigned int nTriedMultiplier = 0;
 
-        // Primecoin: try to find hash divisible by primorial
-        //unsigned int nHashFactor = PrimorialFast(nPrimorialHashFactor);
+				// Primecoin: try to find hash divisible by primorial
+				//unsigned int nHashFactor = PrimorialFast(nPrimorialHashFactor);
 
-        uint256 phash;
-        mpz_class mpzHash;
-        mpz_class mpzFixedMultiplier;
-        
-        loop {
-        	memcpy(blockwork.pdata,&(pblock->nVersion),80);
-        	pblock->nNonce=nNoncePreThread;
-        	blockwork.target = 3;
-        	blockwork.max_nonce = pblock->nNonce+100000;
-        	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
-        	if( new_nonce!= -1 ) {
-        		pblock->nNonce=new_nonce;
-        		nNoncePreThread=new_nonce+1;
-        		//printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
-        		mpzFixedMultiplier=blockwork.mulfactor;
-        		phash = pblock->GetHeaderHash();
-        		mpz_set_uint256(mpzHash.get_mpz_t(), phash);
-        		break;
-        	}
-        	pblock->nNonce=blockwork.max_nonce;
-        	nNoncePreThread=blockwork.max_nonce+1;
-        }
-        // Primecoin: primorial fixed multiplier
-        unsigned int nRoundTests = 0;
-        unsigned int nRoundPrimesHit = 0;
-        int64 nPrimeTimerStart = GetTimeMicros();
-        
-				
-        loop
-        {
-            unsigned int nTests = 0;
-            unsigned int nPrimesHit = 0;
-            unsigned int nChainsHit = 0;
+	uint256 phash;
+	mpz_class mpzHash;
+	mpz_class mpzFixedMultiplier;
 
-            // Primecoin: adjust round primorial so that the generated prime candidates meet the minimum
-            // Primecoin: mine for prime chain
-            unsigned int nProbableChainLength;
-            if (MineProbablePrimeChain( *pblock
-            	, mpzFixedMultiplier
-            	, fNewBlock
-            	, nTriedMultiplier
-            	, nProbableChainLength
-            	, nTests
-            	, nPrimesHit
-            	, nChainsHit
-            	, mpzHash
-            	, nPrimorialMultiplier
-            	, nSieveGenTime
-            	, pindexPrev
-            	, block_provider != NULL
-            	, 0))
-            {
+	nNoncePreThread = updateNonce( pblock, nNoncePreThread, nonceGrp);
+	mpzFixedMultiplier = nonceGrp.mul[nonceGrp.now];
+	pblock->nNonce = nonceGrp.nonce;
+	phash = pblock->GetHeaderHash();
+	mpz_set_uint256(mpzHash.get_mpz_t(), phash);
+	//checkHash(mpzHash,nonceGrp.mul[nonceGrp.now],thread_id);
+	unsigned int nRoundTests = 0;
+	unsigned int nRoundPrimesHit = 0;
+	int64 nPrimeTimerStart = GetTimeMicros();
+
+
+	loop {
+		unsigned int nTests = 0;
+		unsigned int nPrimesHit = 0;
+		unsigned int nChainsHit = 0;
+
+		unsigned int nProbableChainLength;
+		if (MineProbablePrimeChain( *pblock
+			, mpzFixedMultiplier
+			, fNewBlock
+			, nTriedMultiplier
+			, nProbableChainLength
+			, nTests
+			, nPrimesHit
+			, nChainsHit
+			, mpzHash
+			, nPrimorialMultiplier
+			, nSieveGenTime
+			, pindexPrev
+			, block_provider != NULL
+			, 0)) {
 								block_provider->submitBlock(pblock);
 								old_nonce = pblock->nNonce + 1;
-			
+								/*
 								static CCriticalSection cs;
-	              {
-	                LOCK(cs);
-									/*
-	                std::ofstream output_file("miner_data",std::ios::app);
-	                
-			                static const int CURRENT_VERSION=2;
-									    int nVersion;
-									    uint256 hashPrevBlock;
-									    uint256 hashMerkleRoot;
-									    unsigned int nTime;
-									    unsigned int nBits;  // Primecoin: prime chain target, see prime.cpp
-									    unsigned int nNonce;
-									
-	                output_file << "Block" << std::endl;
+								{
+									LOCK(cs);
+									std::ofstream output_file("miner_data",std::ios::app);
+
+									static const int CURRENT_VERSION=2;
+									int nVersion;
+									uint256 hashPrevBlock;
+									uint256 hashMerkleRoot;
+									unsigned int nTime;
+									unsigned int nBits;  // Primecoin: prime chain target, see prime.cpp
+									unsigned int nNonce;
+
+									output_file << "Block" << std::endl;
 									output_file << pblock->nVersion << std::endl;
 									output_file << pblock->hashPrevBlock.ToString().c_str() << std::endl;
 									output_file << pblock->hashMerkleRoot.ToString().c_str() << std::endl;
 									output_file << pblock->nTime << std::endl;
 									output_file << pblock->nBits << std::endl;
-	                output_file << pblock->nNonce << std::endl;
+									output_file << pblock->nNonce << std::endl;
 									output_file << pblock->GetHash().ToString().c_str() << std::endl;
-	 								output_file << pblock->GetHeaderHash().ToString().c_str() << std::endl;
-	                output_file << mpzFixedMultiplier.get_str(10) << std::endl;
-	                output_file << fNewBlock << std::endl;
-	                output_file << nTriedMultiplier << std::endl;
-	                output_file << nPrimorialMultiplier << std::endl;
-	                output_file << mpzHash.get_str(16) << std::endl;
+									output_file << pblock->GetHeaderHash().ToString().c_str() << std::endl;
+									output_file << mpzFixedMultiplier.get_str(10) << std::endl;
+									output_file << fNewBlock << std::endl;
+									output_file << nTriedMultiplier << std::endl;
+									output_file << nPrimorialMultiplier << std::endl;
+									output_file << mpzHash.get_str(16) << std::endl;
 
-	                output_file.close();
-	                */
-	              }
-		
-                break;
-            }
+									output_file.close();
+								}
+								*/
+								break;
+		}
 
-            nRoundTests += nTests;
-            nRoundPrimesHit += nPrimesHit;
-
-            // Meter primes/sec
-            static volatile int64 nPrimeCounter;
-            static volatile int64 nTestCounter;
-            static volatile int64 nChainCounter;
-            static double dChainExpected;
-            int64 nMillisNow = GetTimeMillis();
-            if (nHPSTimerStart == 0)
-            {
-                nHPSTimerStart = nMillisNow;
-                nPrimeCounter = 0;
-                nTestCounter = 0;
-                nChainCounter = 0;
-                dChainExpected = 0;
-            }
-            else
-            {
-                nPrimeCounter += nPrimesHit;
-                nTestCounter += nTests;
-                nChainCounter += nChainsHit;
-            }
-            if (nMillisNow - nHPSTimerStart > 60000)
-            {
-                static CCriticalSection cs;
-                {
-                    LOCK(cs);
-                    if (nMillisNow - nHPSTimerStart > 60000)
-                    {
-                        double dPrimesPerMinute = 60000.0 * nPrimeCounter / (nMillisNow - nHPSTimerStart);
-                        dPrimesPerSec = dPrimesPerMinute / 60.0;
-                        double dTestsPerSec = 1000.0 * nTestCounter / (nMillisNow - nHPSTimerStart);
-                        dChainsPerMinute = 60000.0 * nChainCounter / (nMillisNow - nHPSTimerStart);
-                        dChainsPerDay = 86400000.0 * dChainExpected / (GetTimeMillis() - nHPSTimerStart);
-                        nHPSTimerStart = nMillisNow;
-                        nPrimeCounter = 0;
-                        nTestCounter = 0;
-                        nChainCounter = 0;
-                        dChainExpected = 0;
-                        static int64 nLogTime = 0;
-                        if (nMillisNow - nLogTime > 59000)
-                        {
-                            nLogTime = nMillisNow;
-                            printf("[STATS] %s | %4.0f primes/s, %4.0f tests/s, %4.0f %d-chains/h, %3.3f chains/d\n", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", nLogTime / 1000).c_str(), dPrimesPerSec, dTestsPerSec, dChainsPerMinute * 60.0, nStatsChainLength, dChainsPerDay);
-                        }
-                    }
-                }
-            }
-
-				old_nonce = pblock->nNonce;
-
-            // Check for stop or if block needs to be rebuilt
-            boost::this_thread::interruption_point();
-             if (pblock->nNonce >= 0xffff0000)
-                break;
-            if (pindexPrev != pindexBest/* || (block_provider != NULL && GetTime() - nStart > 200)*/)
-                break;
-			if (thread_id == 0 && block_provider != NULL && (GetTime() - nStart) > 300) { //5 minutes no update? something's wrong -> reconnect!
-				block_provider->forceReconnect();
-				nStart = GetTime();
+		nRoundTests += nTests;
+		nRoundPrimesHit += nPrimesHit;
+		// Meter primes/sec
+		static volatile int64 nPrimeCounter;
+		static volatile int64 nTestCounter;
+		static volatile int64 nChainCounter;
+		static double dChainExpected;
+		int64 nMillisNow = GetTimeMillis();
+		if (nHPSTimerStart == 0)	{
+			nHPSTimerStart = nMillisNow;
+			nPrimeCounter = 0;
+			nTestCounter = 0;
+			nChainCounter = 0;
+			dChainExpected = 0;
+		}
+		else {
+			nPrimeCounter += nPrimesHit;
+			nTestCounter += nTests;
+			nChainCounter += nChainsHit;
+		}
+		if (nMillisNow - nHPSTimerStart > 60000 ) {
+			static CCriticalSection cs;
+			{
+				LOCK(cs);
+				if (nMillisNow - nHPSTimerStart > 60000)	{
+					double dPrimesPerMinute = 60000.0 * nPrimeCounter / (nMillisNow - nHPSTimerStart);
+					dPrimesPerSec = dPrimesPerMinute / 60.0;
+					double dTestsPerSec = 1000.0 * nTestCounter / (nMillisNow - nHPSTimerStart);
+					dChainsPerMinute = 60000.0 * nChainCounter / (nMillisNow - nHPSTimerStart);
+					dChainsPerDay = 86400000.0 * dChainExpected / (GetTimeMillis() - nHPSTimerStart);
+					nHPSTimerStart = nMillisNow;
+					nPrimeCounter = 0;
+					nTestCounter = 0;
+					nChainCounter = 0;
+					dChainExpected = 0;
+					static int64 nLogTime = 0;
+					if (nMillisNow - nLogTime > 59000)	{
+						nLogTime = nMillisNow;
+						printf("[STATS] %s | %4.0f primes/s, %4.0f tests/s, %4.0f %d-chains/h, %3.3f chains/d\n", DateTimeStrFormat("%Y-%m-%d %H:%M:%S", nLogTime / 1000).c_str(), dPrimesPerSec, dTestsPerSec, dChainsPerMinute * 60.0, nStatsChainLength, dChainsPerDay);
+					}
+				}
 			}
-            if (fNewBlock) //aka: sieve's done, we need a updated nonce
-            {
-                // Primecoin: a sieve+primality round completes
-                // Primecoin: estimate time to block
-                const double dTimeExpectedPrev = dTimeExpected;
-                unsigned int nCalcRoundTests = std::max(1u, nRoundTests);
-                // Make sure the estimated time is very high if only 0 primes were found
-                if (nRoundPrimesHit == 0)
-                    nCalcRoundTests *= 1000;
-                int64 nRoundTime = (GetTimeMicros() - nPrimeTimerStart);
-                dTimeExpected = (double) nRoundTime / nCalcRoundTests;
-                double dRoundChainExpected = (double) nRoundTests;
-                for (unsigned int n = 0, nTargetLength = TargetGetLength(pblock->nBits); n < nTargetLength; n++)
-                {
-                    double dPrimeProbability = EstimateCandidatePrimeProbability(nPrimorialMultiplier, n);
-                    dTimeExpected = dTimeExpected / std::max(0.01, dPrimeProbability);
-                    dRoundChainExpected *= dPrimeProbability;
-                }
-                dChainExpected += dRoundChainExpected;
-                if (fDebug && GetBoolArg("-printmining"))
-                {
-                    double dPrimeProbabilityBegin = EstimateCandidatePrimeProbability(nPrimorialMultiplier, 0);
-                    unsigned int nTargetLength = TargetGetLength(pblock->nBits);
-                    double dPrimeProbabilityEnd = EstimateCandidatePrimeProbability(nPrimorialMultiplier, nTargetLength - 1);
-                    printf("PrimecoinMiner() : Round primorial=%u tests=%u primes=%u time=%uus pprob=%1.6f pprob2=%1.6f tochain=%6.3fd expect=%3.9f\n", nPrimorialMultiplier, nRoundTests, nRoundPrimesHit, (unsigned int) nRoundTime, dPrimeProbabilityBegin, dPrimeProbabilityEnd, ((dTimeExpected/1000000.0))/86400.0, dRoundChainExpected);
-                }
-
-                // Primecoin: update time and nonce
-                //pblock->nTime = max(pblock->nTime, (unsigned int) GetAdjustedTime());
-                pblock->nTime = std::max(pblock->nTime, block_provider->GetAdjustedTimeWithOffset(thread_id));
-                pblock->nNonce++;
-                loop {
-        					memcpy(blockwork.pdata,&(pblock->nVersion),80);
-				        	pblock->nNonce=nNoncePreThread;
-				        	blockwork.target = 3;
-				        	blockwork.max_nonce = pblock->nNonce+100000;
-				        	uint32_t new_nonce = scanhash_sse2_64( &blockwork );
-				        	if( new_nonce!= -1 ) {
-				        		pblock->nNonce=new_nonce;
-				        		nNoncePreThread=new_nonce+1;
-				        		//printf("fix[%d] mul: %lld\n",(int)thread_id,(long long int)blockwork.mulfactor);
-				        		mpzFixedMultiplier=blockwork.mulfactor;
-				        		phash = pblock->GetHeaderHash();
-				        		mpz_set_uint256(mpzHash.get_mpz_t(), phash);
-				        		break;
-				        	}
-				        	pblock->nNonce=blockwork.max_nonce;
-				        	nNoncePreThread=blockwork.max_nonce+1;
-				        }
-                if (pblock->nNonce >= 0xffff0000)
-                    break;
-
-                // Primecoin: reset sieve+primality round timer
-                nPrimeTimerStart = GetTimeMicros();
-                if (dTimeExpected > dTimeExpectedPrev)
-                    fIncrementPrimorial = !fIncrementPrimorial;
-
-                // Primecoin: primorial always needs to be incremented if only 0 primes were found
-                if (nRoundPrimesHit ==0)
-                    fIncrementPrimorial = true;
-
-                nRoundTests = 0;
-                nRoundPrimesHit = 0;
-
-
-            }
-        }
-    } }
-    catch (boost::thread_interrupted)
-    {
-        printf("PrimecoinMiner terminated\n");
-        throw;
-    }
+			
+		}
+		old_nonce = pblock->nNonce;
+		// Check for stop or if block needs to be rebuilt
+		boost::this_thread::interruption_point();
+		if (pblock->nNonce >= 0xffff0000)
+			break;
+		if (pindexPrev != pindexBest/* || (block_provider != NULL && GetTime() - nStart > 200)*/)
+			break;
+		if (thread_id == 0 && block_provider != NULL && (GetTime() - nStart) > 300) { //5 minutes no update? something's wrong -> reconnect!
+			block_provider->forceReconnect();
+			nStart = GetTime();
+		}
+		//aka: sieve's done, we need a updated nonce
+		if (fNewBlock) {
+			// Primecoin: a sieve+primality round completes
+			// Primecoin: estimate time to block
+			const double dTimeExpectedPrev = dTimeExpected;
+			unsigned int nCalcRoundTests = std::max(1u, nRoundTests);
+			// Make sure the estimated time is very high if only 0 primes were found
+			if (nRoundPrimesHit == 0)
+				nCalcRoundTests *= 1000;
+			int64 nRoundTime = (GetTimeMicros() - nPrimeTimerStart);
+			dTimeExpected = (double) nRoundTime / nCalcRoundTests;
+			double dRoundChainExpected = (double) nRoundTests;
+			for (unsigned int n = 0, nTargetLength = TargetGetLength(pblock->nBits); n < nTargetLength; n++) {
+				double dPrimeProbability = EstimateCandidatePrimeProbability(nPrimorialMultiplier, n);
+				dTimeExpected = dTimeExpected / std::max(0.01, dPrimeProbability);
+				dRoundChainExpected *= dPrimeProbability;
+			}
+			dChainExpected += dRoundChainExpected;
+			if (fDebug && GetBoolArg("-printmining")) {
+				double dPrimeProbabilityBegin = EstimateCandidatePrimeProbability(nPrimorialMultiplier, 0);
+				unsigned int nTargetLength = TargetGetLength(pblock->nBits);
+				double dPrimeProbabilityEnd = EstimateCandidatePrimeProbability(nPrimorialMultiplier, nTargetLength - 1);
+				printf("PrimecoinMiner() : Round primorial=%u tests=%u primes=%u time=%uus pprob=%1.6f pprob2=%1.6f tochain=%6.3fd expect=%3.9f\n", nPrimorialMultiplier, nRoundTests, nRoundPrimesHit, (unsigned int) nRoundTime, dPrimeProbabilityBegin, dPrimeProbabilityEnd, ((dTimeExpected/1000000.0))/86400.0, dRoundChainExpected);
+			}
+				// Primecoin: update time and nonce
+				nonceGrp.hit[nonceGrp.now]+=dRoundChainExpected;
+				nonceGrp.now++;
+				if( nonceGrp.now>=nonceGrp.num ) {
+					pblock->nTime = std::max(pblock->nTime, block_provider->GetAdjustedTimeWithOffset(thread_id));
+					nNoncePreThread = updateNonce( pblock, nNoncePreThread, nonceGrp);
+					pblock->nNonce = nonceGrp.nonce;
+					phash = pblock->GetHeaderHash();
+					mpz_set_uint256(mpzHash.get_mpz_t(), phash);
+					/*
+					for( int ss=0;ss<8;ss++ )
+						printf("%5lf ",nonceGrp.hit[ss]);
+					printf("\n");
+					*/
+				}
+				mpzFixedMultiplier = nonceGrp.mul[nonceGrp.now];
+				
+				//checkHash(mpzHash,nonceGrp.mul[nonceGrp.now],thread_id);
+				//printf("[%d]%d:%d\n",thread_id,nonceGrp.now,nonceGrp.mul[nonceGrp.now]);
+				if (pblock->nNonce >= 0xffff0000)
+					break;
+				// Primecoin: reset sieve+primality round timer
+				nPrimeTimerStart = GetTimeMicros();
+				if (dTimeExpected > dTimeExpectedPrev)
+					fIncrementPrimorial = !fIncrementPrimorial;
+				// Primecoin: primorial always needs to be incremented if only 0 primes were found
+				if (nRoundPrimesHit ==0)
+					fIncrementPrimorial = true;
+				nRoundTests = 0;
+				nRoundPrimesHit = 0;
+			}
+		}
+	} }
+	catch (boost::thread_interrupted) {
+		printf("PrimecoinMiner terminated\n");
+		throw;
+	}
 }
