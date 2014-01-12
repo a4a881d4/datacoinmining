@@ -668,8 +668,8 @@ static uint32_t updateNonce( CBlock *pblock, uint32_t noncein, struct nonceG& gr
       		grp.num++;
       	}
       }
-      if( grp.num > 4 )
-      	grp.now=grp.num-4;
+      if( grp.num > 3 )
+      	grp.now=grp.num-3;
       else
       	grp.now=0;
       break;
@@ -904,11 +904,11 @@ try { loop {
 					pblock->nNonce = nonceGrp.nonce;
 					phash = pblock->GetHeaderHash();
 					mpz_set_uint256(mpzHash.get_mpz_t(), phash);
-					/*
+					
 					for( int ss=0;ss<8;ss++ )
 						printf("%5lf ",nonceGrp.hit[ss]);
 					printf("\n");
-					*/
+					
 				}
 				mpzFixedMultiplier = nonceGrp.mul[nonceGrp.now];
 				
