@@ -651,7 +651,7 @@ static uint32_t updateNonce( CBlock *pblock, uint32_t noncein, struct nonceG& gr
 	pblock->nNonce=noncein;
 	for(;;) {
   	memcpy(blockwork.pdata,&(pblock->nVersion),80);
-    blockwork.target = 4;
+    blockwork.target = 3;
     blockwork.max = 100000;
     uint32_t new_nonce = scanhash_sse2_64( &blockwork );
     if( new_nonce!= -1 ) {
@@ -668,8 +668,8 @@ static uint32_t updateNonce( CBlock *pblock, uint32_t noncein, struct nonceG& gr
       		grp.num++;
       	}
       }
-      if( grp.num > 3 )
-      	grp.now=grp.num-3;
+      if( grp.num > 4 )
+      	grp.now=grp.num-4;
       else
       	grp.now=0;
       break;
