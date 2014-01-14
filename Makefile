@@ -1,4 +1,4 @@
-CFLAG = -O3 -DTEST=0 -fPIC
+CFLAG = -O3 -DTEST=0 
 LINK=$(CXX)
 LMODE = dynamic
 LIBS = -L/usr/lib/x86_64-linux-gnu

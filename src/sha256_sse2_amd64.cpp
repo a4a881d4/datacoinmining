@@ -104,8 +104,8 @@ inline uint32_t checkInt( __m128i a[8], int j, uint32_t target )
 	const unsigned char *ptarget,
 	uint32_t max_nonce, unsigned long *nHashesDone) */
 const uint32_t primesT1=3*5*7;
-const uint32_t primesT2=11*13*17*19*23*29;
-const uint32_t primesT3=31*37*41*43*47;
+const uint32_t primesT2= 5*7*11*13*17*19*23*29;
+const uint32_t primesT3= 2*3*31*37*41*43*47;
 
 extern "C" int scanhash_sse2_64( const void *pWork )
 {
@@ -164,13 +164,12 @@ extern "C" int scanhash_sse2_64( const void *pWork )
 			mi.m = m_4hash[7];
 			if( (mi.i[j]&0x80000000)==0 )
 				continue;
-			mi.m = m_4hash[0];
-			if( (mi.i[j]&0x1)==1 )
-				continue;
-			if( checkInt(m_4hash,j,primesT1)==0 ) {
+			 {
 				int c = 0;
 				uint64_t mul=1;
 				uint32_t T = checkInt(m_4hash,j,primesT2);
+				if( !(T%5) ) c++; else mul*=5;
+				if( !(T%7) ) c++; else mul*=7;
 				if( !(T%11) ) c++; else mul*=11;
 				if( !(T%13) ) c++; else mul*=13;
 				if( !(T%17) ) c++; else mul*=17;
@@ -178,6 +177,8 @@ extern "C" int scanhash_sse2_64( const void *pWork )
 				if( !(T%23) ) c++; else mul*=23;
 				if( !(T%29) ) c++; else mul*=29;
 				T = checkInt(m_4hash,j,primesT3);
+				if( !(T%2) ) c++; else mul*=2;
+				if( !(T%3) ) c++; else mul*=3;
 				if( !(T%31) ) c++; else mul*=31;
 				if( !(T%37) ) c++; else mul*=37;
 				if( !(T%41) ) c++; else mul*=41;

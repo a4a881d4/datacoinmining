@@ -5,6 +5,7 @@
 
 #include "json_spirit_reader.h"
 #include "json_spirit_reader_template.h"
+#define BOOST_NO_STD_WSTRING
 
 using namespace json_spirit;
 

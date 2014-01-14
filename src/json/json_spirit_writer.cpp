@@ -5,6 +5,7 @@
 
 #include "json_spirit_writer.h"
 #include "json_spirit_writer_template.h"
+#define BOOST_NO_STD_WSTRING
 
 void json_spirit::write( const Value& value, std::ostream& os )
 {
