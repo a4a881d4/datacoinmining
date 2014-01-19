@@ -15,7 +15,8 @@ LIBS += \
    -l gmp \
  -Wl,-B$(LMODE) 
 
-OBJS=work/prime.o work/main_poolminer.o work/util.o work/sync.o work/hash.o work/sha256_sse2_amd64.o work/sha256_xmm_amd64.o work/json_spirit_reader work/json_spirit_value work/json_spirit_writer
+OBJS=work/prime.o work/main_poolminer.o work/util.o work/sync.o work/hash.o work/sha256_sse2_amd64.o work/sha256_xmm_amd64.o 
+#work/json_spirit_reader work/json_spirit_value work/json_spirit_writer
 
 
 
@@ -37,12 +38,6 @@ work/util.o:src/util.cpp
 work/sync.o:src/sync.cpp
 	$(CXX) $(CFLAG) -c -o $@ $^
 work/hash.o:src/hash.cpp
-	$(CXX) $(CFLAG) -c -o $@ $^
-work/json_spirit_reader:src/json/json_spirit_reader.cpp
-	$(CXX) $(CFLAG) -c -o $@ $^
-work/json_spirit_value:src/json/json_spirit_value.cpp
-	$(CXX) $(CFLAG) -c -o $@ $^
-work/json_spirit_writer:src/json/json_spirit_writer.cpp
 	$(CXX) $(CFLAG) -c -o $@ $^
 
 work/dm:$(OBJS)

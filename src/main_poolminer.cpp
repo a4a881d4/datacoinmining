@@ -629,12 +629,12 @@ struct nonceG {
 	int now;
 };
 
-const uint32_t smallPrimes[15]={2,3,5,7,11,13,17,19,23,29,31,37,41,43,47};
+const uint32_t smallPrimes[18]={2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61};
 static void checkHash( mpz_class &hash,uint64_t mul,int thread_id )
 {
 	//printf("thread [%d,%20lld] check:",thread_id,(long long int)mul);
 	//	if( mpz_divisible_ui_p(hash.get_mpz_t(),210) ) printf("0"); else printf("*");
-	for( int i=0;i<15;i++ )
+	for( int i=0;i<18;i++ )
 		if( (mpz_divisible_ui_p(hash.get_mpz_t(), smallPrimes[i])) || (mul%smallPrimes[i])==0 ) printf("0"); else printf("*");
 	/*		
 	printf("-");
@@ -651,7 +651,7 @@ static uint32_t updateNonce( CBlock *pblock, uint32_t noncein, struct nonceG& gr
 	pblock->nNonce=noncein;
 	for(;;) {
   	memcpy(blockwork.pdata,&(pblock->nVersion),80);
-    blockwork.target = 7;
+    blockwork.target = 8;
     blockwork.max = 100000;
     uint32_t new_nonce = scanhash_sse2_64( &blockwork );
     if( new_nonce!= -1 ) {
@@ -661,15 +661,15 @@ static uint32_t updateNonce( CBlock *pblock, uint32_t noncein, struct nonceG& gr
       grp.num=0;
       uint64_t m=1;
       uint64_t mulf = blockwork.mulfactor;
-      for( i=0;i<15;i++ ) {
+      for( i=0;i<18;i++ ) {
       	if( (mulf%smallPrimes[i])==0 ) {
       		m*=smallPrimes[i];
       		grp.mul[grp.num]=m;
       		grp.num++;
       	}
       }
-      if( grp.num > 3 )
-      	grp.now=grp.num-3;
+      if( grp.num > 4 )
+      	grp.now=grp.num-4;
       else
       	grp.now=0;
       break;
