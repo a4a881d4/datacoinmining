@@ -240,8 +240,8 @@ public:
         memset(vfExtendedCompositeBiTwin, 0, nSieveExtensions * nCandidatesBytes);
         memset(vfExtendedCompositeCunningham1, 0, nSieveExtensions * nCandidatesBytes);
         memset(vfExtendedCompositeCunningham2, 0, nSieveExtensions * nCandidatesBytes);
-        nChainLength = 8;//TargetGetLength(nBits);
-        nChainLength_A = 8;//TargetGetLength(nBits);
+        nChainLength = 7;//TargetGetLength(nBits);
+        nChainLength_A = 7;//TargetGetLength(nBits);
         nSieveLayers = nChainLength + nSieveExtensions;
 
         // Process only a set percentage of the primes

@@ -1,0 +1,694 @@
+********************************************
+*** Xolominer - Primecoin Pool Miner v0.9 RC1
+*** by xolokram/TB - www.beeeeer.org - glhf
+***
+*** thx to Sunny King & mikaelh
+*** press CTRL+C to exit
+********************************************
+BhNGMJwaCCaTyaXjSq14T1CjGTnkzHE4Ru.i54
+GeneratePrimeTable() : setting nSieveExtensions = 9, nSievePercentage = 10, nSieveSize = 3000000
+GeneratePrimeTable() : prime table [1, 3000000] generated with 216816 primes
+spawning 4 worker thread(s)
+[WORKER3] Hello, World!
+[WORKER3] GoGoGo!
+[WORKER2] Hello, World!
+[WORKER2] GoGoGo!
+[WORKER0] Hello, World![WORKER
+[WORKER0] GoGoGo!
+1] Hello, World!
+[WORKER1] GoGoGo!
+connecting to 162.243.113.54:8336
+[MASTER] work received
+PrimecoinMiner started
+PrimecoinMiner started
+PrimecoinMiner started
+PrimecoinMiner started
+Probable prime chain found for block=bafb85b895695a04ae3c0ee6824b319e1423d538fe2287873443780ee97bab6a!!
+  Target: 08.e6e519
+  Chain: 1CC06.80b67d
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:07:03 | 2-CH: 1 (100.0% | 400.0/h), VL: 1 (100.0%), RJ: 0 (0.0%), ST: 0 (0.0%)
+Probable prime chain found for block=089c6b66c4c5cb00d9676af855b36d7beaf91410a8e0b781d5f7f3dec1605d9f!!
+  Target: 08.e6e519
+  Chain: TWN06.08a7bc
+Probable prime chain found for block=1bf7776aa586d5ff73efa11eae4e7fd08e624d7a3816e0d6596d82d216f1ed3c!!
+  Target: 08.e6e519
+  Chain: 2CC06.1aebb4
+[MASTER] submitted share -> REJECTED
+[STATS] 2014-01-19 13:07:23 | 2-CH: 1 (100.0% | 120.0/h), VL: 1 (50.0%), RJ: 1 (50.0%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:07:55 | 4013 primes/s, 57871 tests/s, 1740 5-chains/h, 116.697 chains/d
+Probable prime chain found for block=08c54330ed5e3d8cdbeb1711ba956f25c570fdecf9680c91f08793dcf6eeb216!!
+  Target: 08.e6e519
+  Chain: 2CC06.f9b97d
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:08:08 | 2-CH: 2 (100.0% | 96.0/h), VL: 2 (66.7%), RJ: 1 (33.3%), ST: 0 (0.0%)
+Probable prime chain found for block=49d6bb9caa34ddaecbf0ff1f958ea0d057c640e9c7cf5e4b97e41058d5135b8d!!
+  Target: 08.e6e519
+  Chain: 2CC06.0d5fe2
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:08:18 | 2-CH: 3 (100.0% | 127.1/h), VL: 3 (75.0%), RJ: 1 (25.0%), ST: 0 (0.0%)
+Probable prime chain found for block=aa589e0dc84cec10773bfc578724eceac529d1d89a744fa35e673210773b6f3c!!
+  Target: 08.e6e519
+  Chain: TWN06.f5131d
+Probable prime chain found for block=e6d5b7f3a7f2171863920a286ce65c753c3fed13073646dc830d9b7a54e92a34!!
+  Target: 08.e6e519
+  Chain: 1CC06.e95edd
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:08:44 | 2-CH: 4 (100.0% | 129.7/h), VL: 4 (80.0%), RJ: 1 (20.0%), ST: 0 (0.0%)
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:08:44 | 2-CH: 5 (100.0% | 162.2/h), VL: 5 (83.3%), RJ: 1 (16.7%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:08:55 | 3955 primes/s, 56946 tests/s, 1560 5-chains/h, 114.791 chains/d
+Probable prime chain found for block=3d56a0c670c6a1078bde550f3d055b2c59ae9048f1a4a53d7d5a8a5b6d9e0be9!!
+  Target: 08.e6e519
+  Chain: TWN06.45e062
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:09:07 | 2-CH: 6 (100.0% | 161.2/h), VL: 6 (85.7%), RJ: 1 (14.3%), ST: 0 (0.0%)
+Probable prime chain found for block=9c0c82a0d912a615217493355ad29239bb7e05fe2cd8dcafe5ad7dc7d6f0b3c4!!
+  Target: 08.e6e519
+  Chain: 1CC06.c714d2
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:09:16 | 2-CH: 7 (100.0% | 176.2/h), VL: 7 (87.5%), RJ: 1 (12.5%), ST: 0 (0.0%)
+Probable prime chain found for block=0e6d4f8338647340e680dca84c1bb8c1128c6d8b21d96cdf849f0bc23c1ebde2!!
+  Target: 08.e6e519
+  Chain: 1CC07.389b4f
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:09:33 | 2-CH: 8 (100.0% | 180.0/h), VL: 8 (88.9%), RJ: 1 (11.1%), ST: 0 (0.0%)
+Probable prime chain found for block=2ca0ab9a96ed90db4125fdb0c6b6486de98ab1e9b17b5c8d12d845c53571e9b6!!
+  Target: 08.e6e519
+  Chain: 1CC06.36bc3f
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:09:51 | 2-CH: 9 (100.0% | 182.0/h), VL: 9 (90.0%), RJ: 1 (10.0%), ST: 0 (0.0%)
+Probable prime chain found for block=2af5eedbbdb27a5a6b5f5bcdd77914177f83ffcc41d403dc8605686c60b498ea!!
+  Target: 08.e6e519
+  Chain: 2CC06.5070a4
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:09:54 | 2-CH: 10 (100.0% | 198.9/h), VL: 10 (90.9%), RJ: 1 (9.1%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:09:55 | 4138 primes/s, 59502 tests/s, 1980 5-chains/h, 119.780 chains/d
+[MASTER] work received
+[MASTER] work received
+Probable prime chain found for block=45a72b8791ab91ce7f3aa3c44e2ec6f812715e1d0dad7ba7974d6abca21f7665!!
+  Target: 08.e6e0e5
+  Chain: 1CC06.6f1155
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:10:13 | 2-CH: 11 (100.0% | 198.0/h), VL: 11 (91.7%), RJ: 1 (8.3%), ST: 0 (0.0%)
+Probable prime chain found for block=4e6ac1fdde29caaac325f2ec97b51ce959402d541d62d28f84f0cf6aa9c9dcb4!!
+  Target: 08.e6e0e5
+  Chain: 2CC06.7cb587
+Probable prime chain found for block=3fe977d07221c97c3cf08be31ac31523d95655a44a70eaefa7ee5e338fef06ca!!
+  Target: 08.e6e0e5
+  Chain: 1CC06.3946a3
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:10:18 | 2-CH: 12 (100.0% | 210.7/h), VL: 12 (92.3%), RJ: 1 (7.7%), ST: 0 (0.0%)
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:10:18 | 2-CH: 13 (100.0% | 228.3/h), VL: 13 (92.9%), RJ: 1 (7.1%), ST: 0 (0.0%)
+Probable prime chain found for block=0bdaa156119f299c66ffd3f8dc6be56d35881f86181f53426ba55155ccede1e0!!
+  Target: 08.e6e0e5
+  Chain: TWN06.454f16
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:10:37 | 2-CH: 14 (100.0% | 225.0/h), VL: 14 (93.3%), RJ: 1 (6.7%), ST: 0 (0.0%)
+Probable prime chain found for block=c29cb7978e1c35111ffc54893cd65d3443ce40071817b1e10199c1eaf59d757d!!
+  Target: 08.e6e0e5
+  Chain: 2CC06.14ca49
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:10:39 | 2-CH: 15 (100.0% | 238.9/h), VL: 15 (93.8%), RJ: 1 (6.2%), ST: 0 (0.0%)
+Probable prime chain found for block=9aa2e5e96718a38715c6712a64081dfd401ae3957090bd5db3341a6846d5dabf!!
+  Target: 08.e6e0e5
+  Chain: TWN06.4962e5
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:10:50 | 2-CH: 16 (100.0% | 243.0/h), VL: 16 (94.1%), RJ: 1 (5.9%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:10:55 | 3911 primes/s, 56458 tests/s, 1740 5-chains/h, 112.650 chains/d
+[MASTER] work received
+Probable prime chain found for block=330bd995ab193d08945a4899bb0ddac6c9fc9565f7570ccc596b0833733c8eb3!!
+  Target: 08.e6e0e0
+  Chain: TWN06.1a612c
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:11:28 | 2-CH: 17 (100.0% | 222.5/h), VL: 17 (94.4%), RJ: 1 (5.6%), ST: 0 (0.0%)
+Probable prime chain found for block=4a0f9d3b93dee10c9122776b3180d68b65fd5fb546fa68c60b1f4caaa5e970aa!!
+  Target: 08.e6e0e0
+  Chain: TWN06.e51e73
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:11:33 | 2-CH: 18 (100.0% | 231.4/h), VL: 18 (94.7%), RJ: 1 (5.3%), ST: 0 (0.0%)
+Probable prime chain found for block=aab305a592ad054ce012c530b2c8a2eb58d0668a129d418357940a8da85c437b!!
+  Target: 08.e6e0e0
+  Chain: TWN06.02384e
+Probable prime chain found for block=c0b3a159e2c5b7a9daf18c888699ed51fa23bbe43d61f10baa9a675e94e56ce4!!
+  Target: 08.e6e0e0
+  Chain: 2CC06.9ecb4f
+Probable prime chain found for block=a91a36da3c92df3d14a8acd6b8ea7e012846ac84b6a0841f97f59104b38040e6!!
+  Target: 08.e6e0e0
+  Chain: 1CC06.723d20
+[MASTER] submitted share -> REJECTED
+[STATS] 2014-01-19 13:11:37 | 2-CH: 18 (100.0% | 228.2/h), VL: 18 (90.0%), RJ: 2 (10.0%), ST: 0 (0.0%)
+Probable prime chain found for block=34efdd88d2f3b6f832314b098c1367536adf4445a4ec1e12c6fbc5f34b4f5186!!
+  Target: 08.e6e0e0
+  Chain: TWN06.2faefa
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:11:41 | 2-CH: 19 (100.0% | 237.5/h), VL: 19 (90.5%), RJ: 2 (9.5%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:11:55 | 4107 primes/s, 59181 tests/s, 1920 5-chains/h, 119.085 chains/d
+Probable prime chain found for block=d232cd5c783e140b23d8ab438ef38548d3de9ca50931d095f532bba28eeac799!!
+  Target: 08.e6e0e0
+  Chain: 1CC06.206000
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:11:58 | 2-CH: 20 (100.0% | 236.1/h), VL: 20 (90.9%), RJ: 2 (9.1%), ST: 0 (0.0%)
+Probable prime chain found for block=193ce8273defa0dd6774bfb2a4fc3387c4345490b7e5e7c4deccf826872579e9!!
+  Target: 08.e6e0e0
+  Chain: 2CC06.a4ac3e
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:11:59 | 2-CH: 21 (100.0% | 247.1/h), VL: 21 (91.3%), RJ: 2 (8.7%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=5f8375e7887b4bbfc280efffe71dee26356f64686141488c01c48e485db76860!!
+  Target: 08.e6e089
+  Chain: TWN06.f9ba03
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:12:43 | 2-CH: 22 (100.0% | 226.3/h), VL: 22 (91.7%), RJ: 2 (8.3%), ST: 0 (0.0%)
+Probable prime chain found for block=6ea7c720b43a6401c861cabf3e6697785d2dba7cb5aa5a58cff958b00a051b66!!
+  Target: 08.e6e089
+  Chain: 2CC06.2f7bfb
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:12:52 | 2-CH: 23 (100.0% | 230.6/h), VL: 23 (92.0%), RJ: 2 (8.0%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:12:55 | 4044 primes/s, 58323 tests/s, 1920 5-chains/h, 117.246 chains/d
+Probable prime chain found for block=0abb079dea4240d38c92465ee4b48984cc8ad8821ea40c21e926fb4733e44327!!
+  Target: 08.e6e089
+  Chain: 2CC06.9dc6d2
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:13:05 | 2-CH: 24 (100.0% | 232.3/h), VL: 24 (92.3%), RJ: 2 (7.7%), ST: 0 (0.0%)
+Probable prime chain found for block=a08ae0a0b94249fae90fd512834a1fc175f4b84ad6820770b2f1f65359ed6780!!
+  Target: 08.e6e089
+  Chain: TWN06.b4f5f7
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:13:10 | 2-CH: 25 (100.0% | 238.7/h), VL: 25 (92.6%), RJ: 2 (7.4%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:13:55 | 4166 primes/s, 60013 tests/s, 1680 5-chains/h, 121.148 chains/d
+Probable prime chain found for block=1714f5469ceac9e6eb1ead99dac1f8605cb022c015211b4cce4a407490c7865a!!
+  Target: 08.e6e089
+  Chain: 1CC06.7c6567
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:14:02 | 2-CH: 26 (100.0% | 218.2/h), VL: 26 (92.9%), RJ: 2 (7.1%), ST: 0 (0.0%)
+Probable prime chain found for block=c5a0af531206db3fd603334ea050fffb1bf6982b7083d6027d3e13fff034772a!!
+  Target: 08.e6e089
+  Chain: 2CC06.c8b403
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:14:07 | 2-CH: 27 (100.0% | 224.0/h), VL: 27 (93.1%), RJ: 2 (6.9%), ST: 0 (0.0%)
+Probable prime chain found for block=7fc1c8c3bf22381fa37f5523c2c3187e3c5b4aed204a8d49e83eb70e9be282a6!!
+  Target: 08.e6e089
+  Chain: 2CC06.d08955
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:14:16 | 2-CH: 28 (100.0% | 227.5/h), VL: 28 (93.3%), RJ: 2 (6.7%), ST: 0 (0.0%)
+Probable prime chain found for block=cbdefb5d5c68bb67af773c5cf249fc0a705c4b505e2f65d6e87cd15bc1aa081b!!
+  Target: 08.e6e089
+  Chain: 1CC06.f70ca3
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:14:16 | 2-CH: 29 (100.0% | 235.7/h), VL: 29 (93.5%), RJ: 2 (6.5%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:14:55 | 4100 primes/s, 59192 tests/s, 1860 5-chains/h, 119.372 chains/d
+[STATS] 2014-01-19 13:15:55 | 4158 primes/s, 59918 tests/s, 1980 5-chains/h, 121.230 chains/d
+Probable prime chain found for block=a13310d396bdc22822134e3720a58cd09ad8d156454153e2611ca988fafc951d!!
+  Target: 08.e6e089
+  Chain: 1CC06.9d5b44
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:16:06 | 2-CH: 30 (100.0% | 195.3/h), VL: 30 (93.8%), RJ: 2 (6.2%), ST: 0 (0.0%)
+Probable prime chain found for block=3469c4e20db8e365b12096e2e4862df4629986f286c8239123328b5140e5b07e!!
+  Target: 08.e6e089
+  Chain: 1CC06.4973a1
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:16:28 | 2-CH: 31 (100.0% | 194.1/h), VL: 31 (93.9%), RJ: 2 (6.1%), ST: 0 (0.0%)
+[MASTER] work received
+[MASTER] work received
+[STATS] 2014-01-19 13:16:55 | 4010 primes/s, 57661 tests/s, 1620 5-chains/h, 116.316 chains/d
+[STATS] 2014-01-19 13:17:55 | 4169 primes/s, 59983 tests/s, 1560 5-chains/h, 121.439 chains/d
+[MASTER] work received
+[MASTER] work received
+Probable prime chain found for block=e92db66786444e6355d75c3a0debfac4ee243083043874b277dd7890e3c91605!!
+  Target: 08.e6df0e
+  Chain: 1CC06.e26527
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:18:00 | 2-CH: 32 (100.0% | 172.7/h), VL: 32 (94.1%), RJ: 2 (5.9%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=2ec60c76e91d0c97972c691a2bb5e82c4eb589ffa4e8f1d21f3b858625534486!!
+  Target: 08.e6e014
+  Chain: TWN06.802ccc
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:18:16 | 2-CH: 33 (100.0% | 173.9/h), VL: 33 (94.3%), RJ: 2 (5.7%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:18:55 | 4062 primes/s, 58273 tests/s, 1560 5-chains/h, 116.593 chains/d
+Probable prime chain found for block=f291095838d1af0d7fbc3ae82ea41ace124cd90efae9d7683b9d5b8071166462!!
+  Target: 08.e6e014
+  Chain: 1CC06.51de3f
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:19:02 | 2-CH: 34 (100.0% | 167.9/h), VL: 34 (94.4%), RJ: 2 (5.6%), ST: 0 (0.0%)
+Probable prime chain found for block=29a6a6c0c9813c2c4029dcbfa6df588e7601cfca066e97eff5ee395c99a3cd2a!!
+  Target: 08.e6e014
+  Chain: TWN06.5924e4
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:19:20 | 2-CH: 35 (100.0% | 168.7/h), VL: 35 (94.6%), RJ: 2 (5.4%), ST: 0 (0.0%)
+Probable prime chain found for block=9b620384b343133bd58e76c0bfbc8e7ee7ce203825c340d45b6be6390461ecaa!!
+  Target: 08.e6e014
+  Chain: 1CC06.1fad9a
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:19:33 | 2-CH: 36 (100.0% | 170.5/h), VL: 36 (94.7%), RJ: 2 (5.3%), ST: 0 (0.0%)
+Probable prime chain found for block=daea644ef5dc4bac27b47421ed9e0d6c3578801973d4ebf82fb707da859ea7f8!!
+  Target: 08.e6e014
+  Chain: 1CC06.63db46
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:19:41 | 2-CH: 37 (100.0% | 173.4/h), VL: 37 (94.9%), RJ: 2 (5.1%), ST: 0 (0.0%)
+Probable prime chain found for block=3c18891db1ea9268281b3fa7c76a9c006a357fa9f06ff59b68f94efb02cf0d78!!
+  Target: 08.e6e014
+  Chain: 1CC06.1d0aaf
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:19:42 | 2-CH: 38 (100.0% | 177.9/h), VL: 38 (95.0%), RJ: 2 (5.0%), ST: 0 (0.0%)
+[MASTER] work received
+[STATS] 2014-01-19 13:19:55 | 3958 primes/s, 56993 tests/s, 2279 5-chains/h, 114.713 chains/d
+Probable prime chain found for block=dd795fe86fe0ed44134675fb2ca36bb76673390a3394caaa845ceffd09c1252c!!
+  Target: 08.e6df66
+  Chain: 1CC06.93caad
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:20:14 | 2-CH: 39 (100.0% | 175.3/h), VL: 39 (95.1%), RJ: 2 (4.9%), ST: 0 (0.0%)
+[MASTER] work received
+[MASTER] work received
+Probable prime chain found for block=2e43ffb08575d70f1bbb25e74b206ef977dec05b28489d9d8f6e8a2a5e477100!!
+  Target: 08.e6e0f5
+  Chain: 1CC06.9a2b5e
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:20:40 | 2-CH: 40 (100.0% | 174.1/h), VL: 40 (95.2%), RJ: 2 (4.8%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:20:55 | 4013 primes/s, 57854 tests/s, 1920 5-chains/h, 116.371 chains/d
+Probable prime chain found for block=8809cb31c6ac21ff949fad0a330494479f6338b0b4d66368e515ec21ff75a7a7!!
+  Target: 08.e6e0f5
+  Chain: 2CC06.13058b
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:21:02 | 2-CH: 41 (100.0% | 173.9/h), VL: 41 (95.3%), RJ: 2 (4.7%), ST: 0 (0.0%)
+Probable prime chain found for block=6da13624ed8d25313b388287d2756c1e80fb832072eac25f2d33385eb31c61af!!
+  Target: 08.e6e0f5
+  Chain: 2CC06.c0909c
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:21:11 | 2-CH: 42 (100.0% | 176.2/h), VL: 42 (95.5%), RJ: 2 (4.5%), ST: 0 (0.0%)
+Probable prime chain found for block=8c83358f90be5370989572d47ae91ead6a0eabdd73c93b2227e04e074ade3f98!!
+  Target: 08.e6e0f5
+  Chain: 1CC06.8751c9
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:21:15 | 2-CH: 43 (100.0% | 179.6/h), VL: 43 (95.6%), RJ: 2 (4.4%), ST: 0 (0.0%)
+Probable prime chain found for block=7095b29d3e713a94c46dc474ff5a80dee567832144cc017a1e428c06c5d13ca9!!
+  Target: 08.e6e0f5
+  Chain: TWN06.b24bee
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:21:25 | 2-CH: 44 (100.0% | 181.7/h), VL: 44 (95.7%), RJ: 2 (4.3%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=bd9838c369d6308c157617e776b1d2e16f3284e9241ab89ea645aec7e3f5eec3!!
+  Target: 08.e6e0cf
+  Chain: TWN06.d78e77
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:21:45 | 2-CH: 45 (100.0% | 181.6/h), VL: 45 (95.7%), RJ: 2 (4.3%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:21:55 | 4105 primes/s, 59145 tests/s, 1800 5-chains/h, 119.173 chains/d
+Probable prime chain found for block=e4afcb36be6b23a8fb0ea96473bcdc1a097073fca0d533929b7f5dfe38dea094!!
+  Target: 08.e6e0cf
+  Chain: TWN06.b1db7e
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:22:32 | 2-CH: 46 (100.0% | 176.4/h), VL: 46 (95.8%), RJ: 2 (4.2%), ST: 0 (0.0%)
+Probable prime chain found for block=6fe46a0d3381369b8f3204d214c00899252d19108c41c33da35d2e7752b27ef2!!
+  Target: 08.e6e0cf
+  Chain: 2CC06.d25ac3
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:22:39 | 2-CH: 47 (100.0% | 178.9/h), VL: 47 (95.9%), RJ: 2 (4.1%), ST: 0 (0.0%)
+Probable prime chain found for block=89b43cb2df94b17c93174ffc830897e17f37a1b155f1843d77dc68c56a7d2355!!
+  Target: 08.e6e0cf
+  Chain: TWN06.5de2a3
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:22:50 | 2-CH: 48 (100.0% | 180.6/h), VL: 48 (96.0%), RJ: 2 (4.0%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:22:55 | 4092 primes/s, 59024 tests/s, 2040 5-chains/h, 118.981 chains/d
+[MASTER] work received
+Probable prime chain found for block=fa517094803267cd99aab286ad017a3f222eefa0983966fc1f4b81d06ceb3be2!!
+  Target: 08.e6dff6
+  Chain: 1CC06.ae1e63
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:23:08 | 2-CH: 49 (100.0% | 180.9/h), VL: 49 (96.1%), RJ: 2 (3.9%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=72878367fb49bafbd982b5f075ce88d9cef127b2204c64c0318c5baba823c1c2!!
+  Target: 08.e6e16e
+  Chain: 2CC06.04cc30
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:23:39 | 2-CH: 50 (100.0% | 178.9/h), VL: 50 (96.2%), RJ: 2 (3.8%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:23:55 | 4084 primes/s, 58983 tests/s, 1320 5-chains/h, 118.145 chains/d
+Probable prime chain found for block=f0a8abd97e4cb7db3f561507f1c034ee220c273c94937b4b3ed9c1c63be72662!!
+  Target: 08.e6e16e
+  Chain: 1CC06.5e3803
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:23:59 | 2-CH: 51 (100.0% | 178.9/h), VL: 51 (96.2%), RJ: 2 (3.8%), ST: 0 (0.0%)
+Probable prime chain found for block=81fd253f477c9fc183ee9c333373337b8e2bc3545a227516e7d9ceab85be3c3a!!
+  Target: 08.e6e16e
+  Chain: TWN06.0b2559
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:24:00 | 2-CH: 52 (100.0% | 182.3/h), VL: 52 (96.3%), RJ: 2 (3.7%), ST: 0 (0.0%)
+Probable prime chain found for block=b927ff452b396c42c381aa6a02cb34f05e1331b8722c7d7fd95e12f098a677e4!!
+  Target: 08.e6e16e
+  Chain: 1CC06.f02590
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:24:13 | 2-CH: 53 (100.0% | 183.5/h), VL: 53 (96.4%), RJ: 2 (3.6%), ST: 0 (0.0%)
+Probable prime chain found for block=7e2328be98fb3209834b55dc1a40912a0687b1743728d29ce4270a55b9003a7a!!
+  Target: 08.e6e16e
+  Chain: 1CC06.3e57cb
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:24:22 | 2-CH: 54 (100.0% | 185.3/h), VL: 54 (96.4%), RJ: 2 (3.6%), ST: 0 (0.0%)
+Probable prime chain found for block=0658e534d248de15060b35941ff3f4610e99e91d59fac38f9a212fc75a5b439a!!
+  Target: 08.e6e16e
+  Chain: TWN06.4ed97e
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:24:50 | 2-CH: 55 (100.0% | 183.8/h), VL: 55 (96.5%), RJ: 2 (3.5%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:24:55 | 4140 primes/s, 59690 tests/s, 1680 5-chains/h, 120.698 chains/d
+Probable prime chain found for block=9c87c097f7380ca94f56e64d53f81549925a4e2cb2e2e7a744b798a1a8943de8!!
+  Target: 08.e6e16e
+  Chain: TWN06.0816b0
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:25:01 | 2-CH: 56 (100.0% | 185.3/h), VL: 56 (96.6%), RJ: 2 (3.4%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=2cd02a3b049e5da9828aa64f207219dbda2a731ec20a805271d01f1e8dbf65d0!!
+  Target: 08.e6df33
+  Chain: TWN06.d0283d
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:25:34 | 2-CH: 57 (100.0% | 183.1/h), VL: 57 (96.6%), RJ: 2 (3.4%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=c24eeb5e02c48bc540df17d1fa39caa5a6cef12d2863a5899c62b03cdeb7706e!!
+  Target: 08.e6e0e2
+  Chain: 1CC06.9358cd
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:25:41 | 2-CH: 58 (100.0% | 185.1/h), VL: 58 (96.7%), RJ: 2 (3.3%), ST: 0 (0.0%)
+Probable prime chain found for block=c24eeb5e02c48bc540df17d1fa39caa5a6cef12d2863a5899c62b03cdeb7706e!!
+  Target: 08.e6e0e2
+  Chain: 1CC06.9358cd
+[MASTER] submitted share -> REJECTED
+[STATS] 2014-01-19 13:25:44 | 2-CH: 58 (100.0% | 184.6/h), VL: 58 (95.1%), RJ: 3 (4.9%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:25:55 | 4123 primes/s, 59525 tests/s, 1680 5-chains/h, 118.929 chains/d
+Probable prime chain found for block=fdd0cb2350db41b4167fc3fab69fa51dc6480f86881300939472bc1892c26bc4!!
+  Target: 08.e6e0e2
+  Chain: TWN06.95cec5
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:26:01 | 2-CH: 59 (100.0% | 185.0/h), VL: 59 (95.2%), RJ: 3 (4.8%), ST: 0 (0.0%)
+Probable prime chain found for block=0545c017cc8ded8f23d79c8bc1bbf9f486342d256afa7cd63fdbcb98350f8755!!
+  Target: 08.e6e0e2
+  Chain: TWN06.5a5937
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:26:14 | 2-CH: 60 (100.0% | 186.0/h), VL: 60 (95.2%), RJ: 3 (4.8%), ST: 0 (0.0%)
+Probable prime chain found for block=36b87c13d0acae2bdc040ae338839b62d10c78d8cfb13f4e5378e2126400ab28!!
+  Target: 08.e6e0e2
+  Chain: TWN06.dbbce6
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:26:35 | 2-CH: 61 (100.0% | 185.8/h), VL: 61 (95.3%), RJ: 3 (4.7%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:26:55 | 4121 primes/s, 59526 tests/s, 1620 5-chains/h, 120.233 chains/d
+Probable prime chain found for block=bb6930a98ce0e9eb3d3c4cf8c06fd4e867a62c3b7db43843a7bd8e7d69d741c1!!
+  Target: 08.e6e0e2
+  Chain: 1CC06.1919d9
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:27:08 | 2-CH: 62 (100.0% | 183.7/h), VL: 62 (95.4%), RJ: 3 (4.6%), ST: 0 (0.0%)
+Probable prime chain found for block=fc6bead69cc82d899568492b22185f3c36228cc03340dd5387a718b8556fb06e!!
+  Target: 08.e6e0e2
+  Chain: 1CC07.635bd7
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:27:21 | 2-CH: 63 (100.0% | 184.7/h), VL: 63 (95.5%), RJ: 3 (4.5%), ST: 0 (0.0%)
+[MASTER] work received
+[MASTER] work received
+Probable prime chain found for block=c36aa0c308466dec56fca8fb0e371d7083c35d66ae6395b75ce2fa62276f67ae!!
+  Target: 08.e6e0b2
+  Chain: 2CC06.ef8011
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:27:43 | 2-CH: 64 (100.0% | 184.3/h), VL: 64 (95.5%), RJ: 3 (4.5%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:27:55 | 3976 primes/s, 57300 tests/s, 1500 5-chains/h, 115.132 chains/d
+Probable prime chain found for block=1821634b71be8a93ba8589c0a54fbd760c68295d6b69c0b3a84bb793419fe6da!!
+  Target: 08.e6e0b2
+  Chain: 2CC06.f4ca3a
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:27:56 | 2-CH: 65 (100.0% | 185.3/h), VL: 65 (95.6%), RJ: 3 (4.4%), ST: 0 (0.0%)
+Probable prime chain found for block=9c8189857615c296f93eb7b2400e36650ff5bba9d90224af0e2be867de85652c!!
+  Target: 08.e6e0b2
+  Chain: 2CC07.cc3e68
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:28:21 | 2-CH: 66 (100.0% | 184.5/h), VL: 66 (95.7%), RJ: 3 (4.3%), ST: 0 (0.0%)
+Probable prime chain found for block=c686f5d40b5ab7dbb694de6e73d70e94a9bd7203b974985ad3984640629f05a7!!
+  Target: 08.e6e0b2
+  Chain: 2CC06.00ea27
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:28:46 | 2-CH: 67 (100.0% | 183.7/h), VL: 67 (95.7%), RJ: 3 (4.3%), ST: 0 (0.0%)
+Probable prime chain found for block=1499f05bea2de75a462ebac8081f580791496515f0e96c7051e880b0cda73832!!
+  Target: 08.e6e0b2
+  Chain: 2CC06.fd5503
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:28:54 | 2-CH: 68 (100.0% | 185.3/h), VL: 68 (95.8%), RJ: 3 (4.2%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:28:55 | 4183 primes/s, 59984 tests/s, 2700 5-chains/h, 120.992 chains/d
+[MASTER] work received
+Probable prime chain found for block=93c286a82d411beb2ec1d717752856613d2057466188757b7f8c92a0f9f78111!!
+  Target: 08.e6df82
+  Chain: 1CC06.57afe6
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:29:37 | 2-CH: 69 (100.0% | 182.1/h), VL: 69 (95.8%), RJ: 3 (4.2%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=31abe4bc082c404380cdba0c04af96a8ec2a69b6b6b55d28d96547bb2742469c!!
+  Target: 08.e6e082
+  Chain: 2CC07.482760
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:29:46 | 2-CH: 70 (100.0% | 183.5/h), VL: 70 (95.9%), RJ: 3 (4.1%), ST: 0 (0.0%)
+Probable prime chain found for block=33ae3b30801e8f0936eb757be8556a3c7e8b6334d4288944e818d1b0446c8058!!
+  Target: 08.e6e082
+  Chain: 1CC06.0ccab1
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:29:53 | 2-CH: 71 (100.0% | 185.2/h), VL: 71 (95.9%), RJ: 3 (4.1%), ST: 0 (0.0%)
+Probable prime chain found for block=33ae3b30801e8f0936eb757be8556a3c7e8b6334d4288944e818d1b0446c8058!!
+  Target: 08.e6e082
+  Chain: 1CC06.0ccab1
+[MASTER] submitted share -> REJECTED
+[STATS] 2014-01-19 13:29:55 | 2-CH: 71 (100.0% | 184.9/h), VL: 71 (94.7%), RJ: 4 (5.3%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:29:55 | 4105 primes/s, 59126 tests/s, 1980 5-chains/h, 118.049 chains/d
+Probable prime chain found for block=d6069d1963901717cbc3e60b238742453c291fdd633b207f0b5ab2a41fb316cd!!
+  Target: 08.e6e082
+  Chain: 1CC06.cd2c6d
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:30:23 | 2-CH: 72 (100.0% | 183.8/h), VL: 72 (94.7%), RJ: 4 (5.3%), ST: 0 (0.0%)
+Probable prime chain found for block=4d80ba1f47dbf3e3e001823efda0f9f1b67df26fcca4f9b8c0773583f0ad23a2!!
+  Target: 08.e6e082
+  Chain: TWN06.67e16b
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:30:40 | 2-CH: 73 (100.0% | 184.2/h), VL: 73 (94.8%), RJ: 4 (5.2%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=03bbfb2785a972ed5d12bc50d49f633af732d4426770f7aa1e2be89de02d27e3!!
+  Target: 08.e6e09e
+  Chain: 2CC06.c550d1
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:30:50 | 2-CH: 74 (100.0% | 185.4/h), VL: 74 (94.9%), RJ: 4 (5.1%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:30:55 | 3819 primes/s, 55181 tests/s, 1980 5-chains/h, 111.032 chains/d
+Probable prime chain found for block=ae1607319087828e48a58c139bda0d46a9499c663422bbaf5ab2a51349b33007!!
+  Target: 08.e6e09e
+  Chain: TWN06.f22f53
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:31:13 | 2-CH: 75 (100.0% | 184.9/h), VL: 75 (94.9%), RJ: 4 (5.1%), ST: 0 (0.0%)
+[MASTER] work received
+[MASTER] work received
+[STATS] 2014-01-19 13:31:55 | 4025 primes/s, 58001 tests/s, 1860 5-chains/h, 116.283 chains/d
+[MASTER] work received
+[MASTER] work received
+Probable prime chain found for block=69ece9a141b6573d70ee7b5f3650102467a23c443cfa62e102e1acdc92f3c6de!!
+  Target: 08.e6e3c5
+  Chain: 2CC06.a89be6
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:32:07 | 2-CH: 76 (100.0% | 180.7/h), VL: 76 (95.0%), RJ: 4 (5.0%), ST: 0 (0.0%)
+[MASTER] work received
+[MASTER] work received
+Probable prime chain found for block=d954d8cbad83776fb22ef203357f067b2ea96fa13143f4080c8c1ca4d2a95131!!
+  Target: 08.e6e5d6
+  Chain: 1CC06.e4ea07
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:32:46 | 2-CH: 77 (100.0% | 178.5/h), VL: 77 (95.1%), RJ: 4 (4.9%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:32:55 | 3877 primes/s, 55967 tests/s, 1440 5-chains/h, 112.566 chains/d
+Probable prime chain found for block=2b632e8686eb0226132c7b04af3023f3dee0a48b80113c302968af53a9fe7bd2!!
+  Target: 08.e6e5d6
+  Chain: 1CC06.bc8fc8
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:33:20 | 2-CH: 78 (100.0% | 176.9/h), VL: 78 (95.1%), RJ: 4 (4.9%), ST: 0 (0.0%)
+Probable prime chain found for block=e4ea33099d2e76286413d8624098481cc5b835c393d13b6b335698126fd91987!!
+  Target: 08.e6e5d6
+  Chain: 2CC06.8781a4
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:33:31 | 2-CH: 79 (100.0% | 178.0/h), VL: 79 (95.2%), RJ: 4 (4.8%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:33:55 | 3903 primes/s, 56462 tests/s, 1860 5-chains/h, 114.064 chains/d
+[MASTER] work received
+Probable prime chain found for block=35351251e27f9fbda315197513fb1cdc4357c88513de4ced7bc2d5cea8bedbeb!!
+  Target: 08.e6e51e
+  Chain: 2CC06.b80161
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:34:25 | 2-CH: 80 (100.0% | 174.3/h), VL: 80 (95.2%), RJ: 4 (4.8%), ST: 0 (0.0%)
+Probable prime chain found for block=8d74265ddeb02355e21e91713c3a68bb0b90b5a5d914cd0f068eb31bcbdd4735!!
+  Target: 08.e6e51e
+  Chain: TWN06.2f64a4
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:34:27 | 2-CH: 81 (100.0% | 176.3/h), VL: 81 (95.3%), RJ: 4 (4.7%), ST: 0 (0.0%)
+Probable prime chain found for block=35351251e27f9fbda315197513fb1cdc4357c88513de4ced7bc2d5cea8bedbeb!!
+  Target: 08.e6e51e
+  Chain: 2CC06.b80161
+[MASTER] submitted share -> REJECTED
+[STATS] 2014-01-19 13:34:28 | 2-CH: 81 (100.0% | 176.2/h), VL: 81 (94.2%), RJ: 5 (5.8%), ST: 0 (0.0%)
+Probable prime chain found for block=66e90a80a2d7df34d48a80edabb7eba02b96f673395b38db9c9809de15be63cc!!
+  Target: 08.e6e51e
+  Chain: TWN06.87ea26
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:34:33 | 2-CH: 82 (100.0% | 177.8/h), VL: 82 (94.3%), RJ: 5 (5.7%), ST: 0 (0.0%)
+Probable prime chain found for block=697a56b02dae9142fbff9ef0923901d88c241e9380713839d9eb4f999aec088c!!
+  Target: 08.e6e51e
+  Chain: 1CC06.7df19f
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:34:40 | 2-CH: 83 (100.0% | 179.2/h), VL: 83 (94.3%), RJ: 5 (5.7%), ST: 0 (0.0%)
+Probable prime chain found for block=3cd912fc58e27d99cf7daf0955a33cabfb3a33cb63d987f27e8e1d3fe6f35aef!!
+  Target: 08.e6e51e
+  Chain: 2CC06.9c3d1b
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:34:41 | 2-CH: 84 (100.0% | 181.3/h), VL: 84 (94.4%), RJ: 5 (5.6%), ST: 0 (0.0%)
+Probable prime chain found for block=145d5a5ca0104d484d0dbdc8aecd85168c57684795371fbd6dc0a01f42491735!!
+  Target: 08.e6e51e
+  Chain: 2CC06.c52c9d
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:34:43 | 2-CH: 85 (100.0% | 183.2/h), VL: 85 (94.4%), RJ: 5 (5.6%), ST: 0 (0.0%)
+Probable prime chain found for block=4f8a9dd4f769ae1c5b95e36c4658eab5e6b686f6c42a1028323d384b02e59156!!
+  Target: 08.e6e51e
+  Chain: 1CC06.a9eaac
+[STATS] 2014-01-19 13:34:55 | 3790 primes/s, 54611 tests/s, 1680 5-chains/h, 109.406 chains/d
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:34:56 | 2-CH: 86 (100.0% | 184.0/h), VL: 86 (94.5%), RJ: 5 (5.5%), ST: 0 (0.0%)
+Probable prime chain found for block=53ab8339025b60b3a3dca66c62312368383560abdc49e98ca0404f84e89ecf5a!!
+  Target: 08.e6e51e
+  Chain: 1CC06.8834da
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:35:44 | 2-CH: 87 (100.0% | 180.9/h), VL: 87 (94.6%), RJ: 5 (5.4%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:35:55 | 3679 primes/s, 53082 tests/s, 1320 5-chains/h, 107.371 chains/d
+[STATS] 2014-01-19 13:36:55 | 3694 primes/s, 53146 tests/s, 1860 5-chains/h, 107.688 chains/d
+Probable prime chain found for block=eb824f4c60ba9d04688990c89d15e433fae5efd2065580cf93cebfc78c9cbb33!!
+  Target: 08.e6e51e
+  Chain: 2CC06.51541a
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:36:56 | 2-CH: 88 (100.0% | 175.7/h), VL: 88 (94.6%), RJ: 5 (5.4%), ST: 0 (0.0%)
+Probable prime chain found for block=baa97a7b9c5707c0502356b384a41edd7ee54d1ca2250b26cde434445e6431cd!!
+  Target: 08.e6e51e
+  Chain: 2CC06.7f2a6d
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:37:15 | 2-CH: 89 (100.0% | 175.9/h), VL: 89 (94.7%), RJ: 5 (5.3%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:37:55 | 4085 primes/s, 58876 tests/s, 2220 5-chains/h, 118.412 chains/d
+Probable prime chain found for block=b8b9f6020b85cea6dbf65226c00aaafde0003109c1dcf3e5e0cce97e513c394c!!
+  Target: 08.e6e51e
+  Chain: 2CC06.5b8d3a
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:38:06 | 2-CH: 90 (100.0% | 173.0/h), VL: 90 (94.7%), RJ: 5 (5.3%), ST: 0 (0.0%)
+Probable prime chain found for block=0edc2658fe10867f61cc6b24d9af9adefa1d7ef8382b3ce42aa4c1371a988a6e!!
+  Target: 08.e6e51e
+  Chain: 2CC06.a21aa3
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:38:15 | 2-CH: 91 (100.0% | 174.1/h), VL: 91 (94.8%), RJ: 5 (5.2%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=6e5957874a9979d24c11c0b1142831b2fe76501412466dfcde17b2aea8ec0d02!!
+  Target: 08.e6e166
+  Chain: 2CC06.f7e253
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:38:46 | 2-CH: 92 (100.0% | 173.1/h), VL: 92 (94.8%), RJ: 5 (5.2%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:38:55 | 3823 primes/s, 54955 tests/s, 1860 5-chains/h, 110.786 chains/d
+[MASTER] work received
+[STATS] 2014-01-19 13:39:55 | 3925 primes/s, 56413 tests/s, 1980 5-chains/h, 113.878 chains/d
+Probable prime chain found for block=c470262c255195c19a90474e978918fc57dcc44623427706151ccfb049921dd3!!
+  Target: 08.e6e136
+  Chain: 1CC06.a237c0
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:40:00 | 2-CH: 93 (100.0% | 168.5/h), VL: 93 (94.9%), RJ: 5 (5.1%), ST: 0 (0.0%)
+[MASTER] work received
+Probable prime chain found for block=17c0e01361ad2113fa43c3a1d50f9d2d5645dd94450d2f4798503d0e80b65e34!!
+  Target: 08.e6e12c
+  Chain: 1CC06.767249
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:40:02 | 2-CH: 94 (100.0% | 170.1/h), VL: 94 (94.9%), RJ: 5 (5.1%), ST: 0 (0.0%)
+Probable prime chain found for block=66a09de905a4f7ce2fa829b1cd28367ce956aa063cf4d218a15ae3b790cb8f20!!
+  Target: 08.e6e12c
+  Chain: 2CC06.800f28
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:40:19 | 2-CH: 95 (100.0% | 170.5/h), VL: 95 (95.0%), RJ: 5 (5.0%), ST: 0 (0.0%)
+Probable prime chain found for block=e17c73228189ca5899038b45f4ec044119be75392b4fed3b597909de5c1f272a!!
+  Target: 08.e6e12c
+  Chain: TWN06.fbb0a8
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:40:45 | 2-CH: 96 (100.0% | 170.1/h), VL: 96 (95.0%), RJ: 5 (5.0%), ST: 0 (0.0%)
+Probable prime chain found for block=2b12f0fb811cff97afa3c5af1a4105254b1d54380ec7115fdc0f04a8a8141da8!!
+  Target: 08.e6e12c
+  Chain: 2CC06.ba2ec6
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:40:54 | 2-CH: 97 (100.0% | 171.1/h), VL: 97 (95.1%), RJ: 5 (4.9%), ST: 0 (0.0%)
+Probable prime chain found for block=769a4e4be7422b6b510aa9be22ffd0b86995017560e04d2eeed93a4db5dae8b4!!
+  Target: 08.e6e12c
+  Chain: TWN07.cdb0d6
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:40:55 | 2-CH: 98 (100.0% | 172.8/h), VL: 98 (95.1%), RJ: 5 (4.9%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:40:55 | 3991 primes/s, 57452 tests/s, 1140 5-chains/h, 115.079 chains/d
+Probable prime chain found for block=6d08b033b0bed8eed9f0441de4ecb0d5e65fe3cb6974988adbe8c96c22629c76!!
+  Target: 08.e6e12c
+  Chain: TWN06.fc0f9f
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:41:01 | 2-CH: 99 (100.0% | 174.0/h), VL: 99 (95.2%), RJ: 5 (4.8%), ST: 0 (0.0%)
+Probable prime chain found for block=03a53115c05ad8779af32390ec0238fcd2e606c6a71576bb864fea566427d9e0!!
+  Target: 08.e6e12c
+  Chain: TWN07.878dc3
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:41:05 | 2-CH: 100 (100.0% | 175.4/h), VL: 100 (95.2%), RJ: 5 (4.8%), ST: 0 (0.0%)
+Probable prime chain found for block=dc353bcd04ff697338b4e54a6ffe76b6dad7db93cf35505535e01d543b717790!!
+  Target: 08.e6e12c
+  Chain: 1CC06.e727db
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:41:08 | 2-CH: 101 (100.0% | 176.9/h), VL: 101 (95.3%), RJ: 5 (4.7%), ST: 0 (0.0%)
+Probable prime chain found for block=05a24dc8b026f3151709abb320e0228da6eb34b22b4ee493b27fa0bbc50cfd5e!!
+  Target: 08.e6e12c
+  Chain: 2CC06.1061a3
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:41:09 | 2-CH: 102 (100.0% | 178.6/h), VL: 102 (95.3%), RJ: 5 (4.7%), ST: 0 (0.0%)
+Probable prime chain found for block=4edda723be64bf8a3b1e30e15b68e1797cfbc3d6e41d48eaf2e3e50d3caed320!!
+  Target: 08.e6e12c
+  Chain: 1CC06.7e09a4
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:41:11 | 2-CH: 103 (100.0% | 180.2/h), VL: 103 (95.4%), RJ: 5 (4.6%), ST: 0 (0.0%)
+Probable prime chain found for block=887690830fcf9fd5ad7f67fa2b3101444232462093b21b088b4149bb60043dd8!!
+  Target: 08.e6e12c
+  Chain: 1CC06.d50f1c
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:41:30 | 2-CH: 104 (100.0% | 180.3/h), VL: 104 (95.4%), RJ: 5 (4.6%), ST: 0 (0.0%)
+Probable prime chain found for block=e46440acda8e07a243722ca7b5839aed3cd0648823a1f4061869a4334c55e7da!!
+  Target: 08.e6e12c
+  Chain: 2CC06.22b2d6
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:41:36 | 2-CH: 105 (100.0% | 181.5/h), VL: 105 (95.5%), RJ: 5 (4.5%), ST: 0 (0.0%)
+[MASTER] work received
+[STATS] 2014-01-19 13:41:55 | 3916 primes/s, 56182 tests/s, 1200 5-chains/h, 112.585 chains/d
+Probable prime chain found for block=932611b4fed16ba1bedc87df5bf37e39494e78d3072ac562e735c55c2533d089!!
+  Target: 08.e6e069
+  Chain: 2CC06.d6b910
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:42:04 | 2-CH: 106 (100.0% | 180.8/h), VL: 106 (95.5%), RJ: 5 (4.5%), ST: 0 (0.0%)
+Probable prime chain found for block=1d9a00156ff96f351530ca4902d75c145f4eb749003f4f38921fe5bb394aca0a!!
+  Target: 08.e6e069
+  Chain: 1CC06.817c3f
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:42:09 | 2-CH: 107 (100.0% | 182.0/h), VL: 107 (95.5%), RJ: 5 (4.5%), ST: 0 (0.0%)
+Probable prime chain found for block=c8a38272102fbd5d60dbf18bfba8bf164ceca1cdb1d37a62b533d1574f0642f8!!
+  Target: 08.e6e069
+  Chain: 1CC06.90f4ca
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:42:17 | 2-CH: 108 (100.0% | 183.1/h), VL: 108 (95.6%), RJ: 5 (4.4%), ST: 0 (0.0%)
+Probable prime chain found for block=369cf221617b2cc71053d9f8ee945c029f630d4da53be8f7811479d46dbeb908!!
+  Target: 08.e6e069
+  Chain: TWN06.904f96
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:42:33 | 2-CH: 109 (100.0% | 183.4/h), VL: 109 (95.6%), RJ: 5 (4.4%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:42:55 | 3885 primes/s, 55864 tests/s, 1560 5-chains/h, 112.818 chains/d
+Probable prime chain found for block=e38d7c6f71bd72c118fd26478943ee6c9602c8f114a1b914211f3dac46b4f80c!!
+  Target: 08.e6e069
+  Chain: 2CC06.ec5260
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:43:11 | 2-CH: 110 (100.0% | 181.8/h), VL: 110 (95.7%), RJ: 5 (4.3%), ST: 0 (0.0%)
+Probable prime chain found for block=bd6a65c12502d915af9f6e7f36c0bddc2f5aed29b42411b3a139560e1252988e!!
+  Target: 08.e6e069
+  Chain: 2CC06.162fa5
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:43:17 | 2-CH: 111 (100.0% | 183.0/h), VL: 111 (95.7%), RJ: 5 (4.3%), ST: 0 (0.0%)
+[STATS] 2014-01-19 13:43:56 | 3756 primes/s, 54099 tests/s, 1380 5-chains/h, 109.398 chains/d
+Probable prime chain found for block=cc37e6be6ac057340586e4215f7f3e2a7b81e57c3d2ffb76571bcf39c4ec8f99!!
+  Target: 08.e6e069
+  Chain: TWN07.d83604
+Probable prime chain found for block=c9537a50dc9ade7344db2569b0de635161530dc25460a5b7174416ad30f3e022!!
+  Target: 08.e6e069
+  Chain: 2CC06.ed198c
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:43:56 | 2-CH: 112 (100.0% | 181.4/h), VL: 112 (95.7%), RJ: 5 (4.3%), ST: 0 (0.0%)
+[MASTER] submitted share -> SHARE
+[STATS] 2014-01-19 13:43:57 | 2-CH: 113 (100.0% | 182.9/h), VL: 113 (95.8%), RJ: 5 (4.2%), ST: 0 (0.0%)
